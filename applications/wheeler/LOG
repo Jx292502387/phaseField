@@ -1,0 +1,302 @@
+In file included from /opt/dealii/include/deal.II/dofs/dof_accessor.h:1705:0,
+                 from /opt/dealii/include/deal.II/fe/fe_values.h:33,
+                 from /home/qixinbo/phaseField/applications/wheeler/../../include/dealIIheaders.h:14,
+                 from /home/qixinbo/phaseField/applications/wheeler/main.cc:4:
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h: 在静态成员函数‘static void dealii::internal::DoFCellAccessor::Implementation::set_active_fe_index(const dealii::DoFCellAccessor<dealii::DoFHandler<dim, spacedim>, level_dof_access>&, unsigned int)’中:
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h:2832:85: 警告：typedef ‘BaseClass’ locally defined but not used [-Wunused-local-typedefs]
+         typedef dealii::DoFAccessor<dim,DoFHandler<dim,spacedim>, level_dof_access> BaseClass;
+                                                                                     ^
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h: 在静态成员函数‘static void dealii::internal::DoFCellAccessor::Implementation::set_active_fe_index(dealii::DoFCellAccessor<dealii::hp::DoFHandler<dim, spacedim>, level_dof_access>&, unsigned int)’中:
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h:2844:85: 警告：typedef ‘BaseClass’ locally defined but not used [-Wunused-local-typedefs]
+         typedef dealii::DoFAccessor<dim,DoFHandler<dim,spacedim>, level_dof_access> BaseClass;
+                                                                                     ^
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h: 在静态成员函数‘static void dealii::internal::DoFCellAccessor::Implementation::distribute_local_to_global(const dealii::DoFCellAccessor<dealii::DoFHandler<dim, spacedim>, level_dof_access>&, ForwardIterator, ForwardIterator, OutputVector&)’中:
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h:2865:85: 警告：typedef ‘BaseClass’ locally defined but not used [-Wunused-local-typedefs]
+         typedef dealii::DoFAccessor<dim,DoFHandler<dim,spacedim>, level_dof_access> BaseClass;
+                                                                                     ^
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h: 在静态成员函数‘static void dealii::internal::DoFCellAccessor::Implementation::distribute_local_to_global(const dealii::DoFCellAccessor<dealii::hp::DoFHandler<dim, spacedim>, level_dof_access>&, ForwardIterator, ForwardIterator, OutputVector&)’中:
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h:2897:85: 警告：typedef ‘BaseClass’ locally defined but not used [-Wunused-local-typedefs]
+         typedef dealii::DoFAccessor<dim,DoFHandler<dim,spacedim>, level_dof_access> BaseClass;
+                                                                                     ^
+In file included from /opt/dealii/include/deal.II/dofs/dof_accessor.h:1705:0,
+                 from /opt/dealii/include/deal.II/fe/fe_values.h:33,
+                 from /home/qixinbo/phaseField/applications/wheeler/../../include/dealIIheaders.h:14,
+                 from /home/qixinbo/phaseField/applications/wheeler/main.cc:4:
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h: 在静态成员函数‘static void dealii::internal::DoFCellAccessor::Implementation::distribute_local_to_global(const dealii::DoFCellAccessor<dealii::DoFHandler<dim, spacedim>, level_dof_access>&, const dealii::ConstraintMatrix&, ForwardIterator, ForwardIterator, OutputVector&)’中:
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h:2928:85: 警告：typedef ‘BaseClass’ locally defined but not used [-Wunused-local-typedefs]
+         typedef dealii::DoFAccessor<dim,DoFHandler<dim,spacedim>, level_dof_access> BaseClass;
+                                                                                     ^
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h: 在静态成员函数‘static void dealii::internal::DoFCellAccessor::Implementation::distribute_local_to_global(const dealii::DoFCellAccessor<dealii::hp::DoFHandler<dim, spacedim>, level_dof_access>&, const dealii::ConstraintMatrix&, ForwardIterator, ForwardIterator, OutputVector&)’中:
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h:2960:85: 警告：typedef ‘BaseClass’ locally defined but not used [-Wunused-local-typedefs]
+         typedef dealii::DoFAccessor<dim,DoFHandler<dim,spacedim>, level_dof_access> BaseClass;
+                                                                                     ^
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h: 在静态成员函数‘static void dealii::internal::DoFCellAccessor::Implementation::distribute_local_to_global(const dealii::DoFCellAccessor<dealii::DoFHandler<dim, spacedim>, level_dof_access>&, const dealii::FullMatrix<number>&, OutputMatrix&)’中:
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h:2990:85: 警告：typedef ‘BaseClass’ locally defined but not used [-Wunused-local-typedefs]
+         typedef dealii::DoFAccessor<dim,DoFHandler<dim,spacedim>, level_dof_access> BaseClass;
+                                                                                     ^
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h: 在静态成员函数‘static void dealii::internal::DoFCellAccessor::Implementation::distribute_local_to_global(const dealii::DoFCellAccessor<dealii::hp::DoFHandler<dim, spacedim>, level_dof_access>&, const dealii::FullMatrix<number>&, OutputMatrix&)’中:
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h:3025:85: 警告：typedef ‘BaseClass’ locally defined but not used [-Wunused-local-typedefs]
+         typedef dealii::DoFAccessor<dim,DoFHandler<dim,spacedim>, level_dof_access> BaseClass;
+                                                                                     ^
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h: 在静态成员函数‘static void dealii::internal::DoFCellAccessor::Implementation::distribute_local_to_global(const dealii::DoFCellAccessor<dealii::DoFHandler<dim, spacedim>, level_dof_access>&, const dealii::FullMatrix<number>&, const dealii::Vector<number>&, OutputMatrix&, OutputVector&)’中:
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h:3061:85: 警告：typedef ‘BaseClass’ locally defined but not used [-Wunused-local-typedefs]
+         typedef dealii::DoFAccessor<dim,DoFHandler<dim,spacedim>, level_dof_access> BaseClass;
+                                                                                     ^
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h: 在静态成员函数‘static void dealii::internal::DoFCellAccessor::Implementation::distribute_local_to_global(const dealii::DoFCellAccessor<dealii::hp::DoFHandler<dim, spacedim>, level_dof_access>&, const dealii::FullMatrix<number>&, const dealii::Vector<number>&, OutputMatrix&, OutputVector&)’中:
+/opt/dealii/include/deal.II/dofs/dof_accessor.templates.h:3104:85: 警告：typedef ‘BaseClass’ locally defined but not used [-Wunused-local-typedefs]
+         typedef dealii::DoFAccessor<dim,DoFHandler<dim,spacedim>, level_dof_access> BaseClass;
+                                                                                     ^
+In file included from /home/qixinbo/phaseField/applications/wheeler/../../include/dealIIheaders.h:14:0,
+                 from /home/qixinbo/phaseField/applications/wheeler/main.cc:4:
+/opt/dealii/include/deal.II/fe/fe_values.h: 在成员函数‘dealii::FEValuesViews::Scalar<dim, spacedim>::value_type dealii::FEValuesViews::Scalar<dim, spacedim>::value(unsigned int, unsigned int) const’中:
+/opt/dealii/include/deal.II/fe/fe_values.h:3211:40: 警告：typedef ‘FVB’ locally defined but not used [-Wunused-local-typedefs]
+     typedef FEValuesBase<dim,spacedim> FVB;
+                                        ^
+/opt/dealii/include/deal.II/fe/fe_values.h: 在成员函数‘dealii::FEValuesViews::Scalar<dim, spacedim>::gradient_type dealii::FEValuesViews::Scalar<dim, spacedim>::gradient(unsigned int, unsigned int) const’中:
+/opt/dealii/include/deal.II/fe/fe_values.h:3237:40: 警告：typedef ‘FVB’ locally defined but not used [-Wunused-local-typedefs]
+     typedef FEValuesBase<dim,spacedim> FVB;
+                                        ^
+/opt/dealii/include/deal.II/fe/fe_values.h: 在成员函数‘dealii::FEValuesViews::Scalar<dim, spacedim>::hessian_type dealii::FEValuesViews::Scalar<dim, spacedim>::hessian(unsigned int, unsigned int) const’中:
+/opt/dealii/include/deal.II/fe/fe_values.h:3264:40: 警告：typedef ‘FVB’ locally defined but not used [-Wunused-local-typedefs]
+     typedef FEValuesBase<dim,spacedim> FVB;
+                                        ^
+/opt/dealii/include/deal.II/fe/fe_values.h: 在成员函数‘dealii::FEValuesViews::Scalar<dim, spacedim>::third_derivative_type dealii::FEValuesViews::Scalar<dim, spacedim>::third_derivative(unsigned int, unsigned int) const’中:
+/opt/dealii/include/deal.II/fe/fe_values.h:3290:40: 警告：typedef ‘FVB’ locally defined but not used [-Wunused-local-typedefs]
+     typedef FEValuesBase<dim,spacedim> FVB;
+                                        ^
+/opt/dealii/include/deal.II/fe/fe_values.h: 在成员函数‘dealii::FEValuesViews::Vector<dim, spacedim>::value_type dealii::FEValuesViews::Vector<dim, spacedim>::value(unsigned int, unsigned int) const’中:
+/opt/dealii/include/deal.II/fe/fe_values.h:3316:40: 警告：typedef ‘FVB’ locally defined but not used [-Wunused-local-typedefs]
+     typedef FEValuesBase<dim,spacedim> FVB;
+                                        ^
+/opt/dealii/include/deal.II/fe/fe_values.h: 在成员函数‘dealii::FEValuesViews::Vector<dim, spacedim>::gradient_type dealii::FEValuesViews::Vector<dim, spacedim>::gradient(unsigned int, unsigned int) const’中:
+/opt/dealii/include/deal.II/fe/fe_values.h:3354:40: 警告：typedef ‘FVB’ locally defined but not used [-Wunused-local-typedefs]
+     typedef FEValuesBase<dim,spacedim> FVB;
+                                        ^
+/opt/dealii/include/deal.II/fe/fe_values.h: 在成员函数‘dealii::FEValuesViews::Vector<dim, spacedim>::divergence_type dealii::FEValuesViews::Vector<dim, spacedim>::divergence(unsigned int, unsigned int) const’中:
+/opt/dealii/include/deal.II/fe/fe_values.h:3394:40: 警告：typedef ‘FVB’ locally defined but not used [-Wunused-local-typedefs]
+     typedef FEValuesBase<dim,spacedim> FVB;
+                                        ^
+/opt/dealii/include/deal.II/fe/fe_values.h: 在成员函数‘dealii::FEValuesViews::Vector<dim, spacedim>::curl_type dealii::FEValuesViews::Vector<dim, spacedim>::curl(unsigned int, unsigned int) const’中:
+/opt/dealii/include/deal.II/fe/fe_values.h:3428:40: 警告：typedef ‘FVB’ locally defined but not used [-Wunused-local-typedefs]
+     typedef FEValuesBase<dim,spacedim> FVB;
+                                        ^
+/opt/dealii/include/deal.II/fe/fe_values.h: 在成员函数‘dealii::FEValuesViews::Vector<dim, spacedim>::hessian_type dealii::FEValuesViews::Vector<dim, spacedim>::hessian(unsigned int, unsigned int) const’中:
+/opt/dealii/include/deal.II/fe/fe_values.h:3567:40: 警告：typedef ‘FVB’ locally defined but not used [-Wunused-local-typedefs]
+     typedef FEValuesBase<dim,spacedim> FVB;
+                                        ^
+/opt/dealii/include/deal.II/fe/fe_values.h: 在成员函数‘dealii::FEValuesViews::Vector<dim, spacedim>::third_derivative_type dealii::FEValuesViews::Vector<dim, spacedim>::third_derivative(unsigned int, unsigned int) const’中:
+/opt/dealii/include/deal.II/fe/fe_values.h:3605:40: 警告：typedef ‘FVB’ locally defined but not used [-Wunused-local-typedefs]
+     typedef FEValuesBase<dim,spacedim> FVB;
+                                        ^
+/opt/dealii/include/deal.II/fe/fe_values.h: 在成员函数‘dealii::FEValuesViews::Vector<dim, spacedim>::symmetric_gradient_type dealii::FEValuesViews::Vector<dim, spacedim>::symmetric_gradient(unsigned int, unsigned int) const’中:
+/opt/dealii/include/deal.II/fe/fe_values.h:3719:40: 警告：typedef ‘FVB’ locally defined but not used [-Wunused-local-typedefs]
+     typedef FEValuesBase<dim,spacedim> FVB;
+                                        ^
+/opt/dealii/include/deal.II/fe/fe_values.h: 在成员函数‘dealii::FEValuesViews::SymmetricTensor<2, dim, spacedim>::value_type dealii::FEValuesViews::SymmetricTensor<2, dim, spacedim>::value(unsigned int, unsigned int) const’中:
+/opt/dealii/include/deal.II/fe/fe_values.h:3753:40: 警告：typedef ‘FVB’ locally defined but not used [-Wunused-local-typedefs]
+     typedef FEValuesBase<dim,spacedim> FVB;
+                                        ^
+/opt/dealii/include/deal.II/fe/fe_values.h: 在成员函数‘dealii::FEValuesViews::SymmetricTensor<2, dim, spacedim>::divergence_type dealii::FEValuesViews::SymmetricTensor<2, dim, spacedim>::divergence(unsigned int, unsigned int) const’中:
+/opt/dealii/include/deal.II/fe/fe_values.h:3800:40: 警告：typedef ‘FVB’ locally defined but not used [-Wunused-local-typedefs]
+     typedef FEValuesBase<dim,spacedim> FVB;
+                                        ^
+/opt/dealii/include/deal.II/fe/fe_values.h: 在成员函数‘dealii::FEValuesViews::Tensor<2, dim, spacedim>::value_type dealii::FEValuesViews::Tensor<2, dim, spacedim>::value(unsigned int, unsigned int) const’中:
+/opt/dealii/include/deal.II/fe/fe_values.h:3890:40: 警告：typedef ‘FVB’ locally defined but not used [-Wunused-local-typedefs]
+     typedef FEValuesBase<dim,spacedim> FVB;
+                                        ^
+/opt/dealii/include/deal.II/fe/fe_values.h: 在成员函数‘dealii::FEValuesViews::Tensor<2, dim, spacedim>::divergence_type dealii::FEValuesViews::Tensor<2, dim, spacedim>::divergence(unsigned int, unsigned int) const’中:
+/opt/dealii/include/deal.II/fe/fe_values.h:3940:40: 警告：typedef ‘FVB’ locally defined but not used [-Wunused-local-typedefs]
+     typedef FEValuesBase<dim,spacedim> FVB;
+                                        ^
+/opt/dealii/include/deal.II/fe/fe_values.h: 在成员函数‘const dealii::Tensor<1, spacedim>& dealii::FEValuesBase<dim, spacedim>::normal_vector(unsigned int) const’中:
+/opt/dealii/include/deal.II/fe/fe_values.h:4609:38: 警告：typedef ‘FVB’ locally defined but not used [-Wunused-local-typedefs]
+   typedef FEValuesBase<dim,spacedim> FVB;
+                                      ^
+/opt/dealii/include/deal.II/fe/fe_values.h: 在成员函数‘const dealii::Tensor<1, spacedim>& dealii::FEFaceValuesBase<dim, spacedim>::boundary_form(unsigned int) const’中:
+/opt/dealii/include/deal.II/fe/fe_values.h:4691:38: 警告：typedef ‘FVB’ locally defined but not used [-Wunused-local-typedefs]
+   typedef FEValuesBase<dim,spacedim> FVB;
+                                      ^
+In file included from /home/qixinbo/phaseField/applications/wheeler/main.cc:8:0:
+/home/qixinbo/phaseField/applications/wheeler/equations.h: 在成员函数‘void generalizedProblem<dim>::energyDensity(const std::vector<modelVariable<dim> >&, const dealii::VectorizedArray<double>&, dealii::Point<dim, dealii::VectorizedArray<double> >)’中:
+/home/qixinbo/phaseField/applications/wheeler/equations.h:180:39: 错误：‘hV’在此作用域中尚未声明
+ scalarvalueType f_chem = (constV(1.0)-hV)*faV + hV*fbV;
+                                       ^
+/home/qixinbo/phaseField/applications/wheeler/equations.h:180:43: 错误：‘faV’在此作用域中尚未声明
+ scalarvalueType f_chem = (constV(1.0)-hV)*faV + hV*fbV;
+                                           ^
+/home/qixinbo/phaseField/applications/wheeler/equations.h:180:52: 错误：‘fbV’在此作用域中尚未声明
+ scalarvalueType f_chem = (constV(1.0)-hV)*faV + hV*fbV;
+                                                    ^
+/home/qixinbo/phaseField/applications/wheeler/equations.h:184:37: 错误：‘delta2’在此作用域中尚未声明
+ scalarvalueType f_reg = constV(0.5)*delta2*biharm*biharm;
+                                     ^
+In file included from /home/qixinbo/phaseField/applications/wheeler/main.cc:10:0:
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h: In instantiation of ‘void generalizedProblem<dim>::inputBCs(int, int, std::string, double) [with int dim = 2; std::string = std::basic_string<char>]’:
+/home/qixinbo/phaseField/applications/wheeler/ICs_and_BCs.h:96:35:   required from ‘void generalizedProblem<dim>::setBCs() [with int dim = 2]’
+/home/qixinbo/phaseField/applications/wheeler/main.cc:22:22:   required from here
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h:1006:6: 警告：未使用的参数‘var’ [-Wunused-parameter]
+ void generalizedProblem<dim>::inputBCs(int var, int component, std::string BC_type, double BC_value){
+      ^
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h:1006:6: 警告：未使用的参数‘component’ [-Wunused-parameter]
+In file included from /home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/matrixFreePDE.h:294:0,
+                 from /home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model.h:5,
+                 from /home/qixinbo/phaseField/applications/wheeler/main.cc:7:
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/boundaryConditions.cc: In instantiation of ‘void MatrixFreePDE<dim>::getComponentsWithRigidBodyModes(std::vector<int>&) [with int dim = 2]’:
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/init.cc:148:60:   required from ‘void MatrixFreePDE<dim>::init(unsigned int) [with int dim = 2]’
+/home/qixinbo/phaseField/applications/wheeler/main.cc:24:21:   required from here
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/boundaryConditions.cc:33:6: 警告：未使用的参数‘rigidBodyModeComponents’ [-Wunused-parameter]
+ void MatrixFreePDE<dim>::getComponentsWithRigidBodyModes( std::vector<int> & rigidBodyModeComponents){
+      ^
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/boundaryConditions.cc: In instantiation of ‘void MatrixFreePDE<dim>::setPeriodicityConstraints(dealii::ConstraintMatrix*, dealii::DoFHandler<dim>*) [with int dim = 2]’:
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/init.cc:152:59:   required from ‘void MatrixFreePDE<dim>::init(unsigned int) [with int dim = 2]’
+/home/qixinbo/phaseField/applications/wheeler/main.cc:24:21:   required from here
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/boundaryConditions.cc:26:6: 警告：未使用的参数‘constraints’ [-Wunused-parameter]
+ void MatrixFreePDE<dim>::setPeriodicityConstraints(ConstraintMatrix * constraints, DoFHandler<dim>* dof_handler){
+      ^
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/boundaryConditions.cc:26:6: 警告：未使用的参数‘dof_handler’ [-Wunused-parameter]
+In file included from /home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/matrixFreePDE.h:285:0,
+                 from /home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model.h:5,
+                 from /home/qixinbo/phaseField/applications/wheeler/main.cc:7:
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/refine.cc: In instantiation of ‘void MatrixFreePDE<dim>::adaptiveRefine(unsigned int) [with int dim = 2]’:
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/solve.cc:43:38:   required from ‘void MatrixFreePDE<dim>::solve() [with int dim = 2]’
+/home/qixinbo/phaseField/applications/wheeler/main.cc:25:21:   required from here
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/refine.cc:9:6: 警告：未使用的参数‘currentIncrement’ [-Wunused-parameter]
+ void MatrixFreePDE<dim>::adaptiveRefine(unsigned int currentIncrement){
+      ^
+In file included from /home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/matrixFreePDE.h:297:0,
+                 from /home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model.h:5,
+                 from /home/qixinbo/phaseField/applications/wheeler/main.cc:7:
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/calcFreeEnergy.cc: In instantiation of ‘void MatrixFreePDE<dim>::getEnergy(const dealii::MatrixFree<dim, double>&, std::vector<dealii::parallel::distributed::Vector<double>*>&, const std::vector<dealii::parallel::distributed::Vector<double>*>&, const std::pair<unsigned int, unsigned int>&) [with int dim = 2]’:
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/calcFreeEnergy.cc:21:31:   required from ‘void MatrixFreePDE<dim>::computeEnergy() [with int dim = 2]’
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/solve.cc:26:21:   required from ‘void MatrixFreePDE<dim>::solve() [with int dim = 2]’
+/home/qixinbo/phaseField/applications/wheeler/main.cc:25:21:   required from here
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/calcFreeEnergy.cc:35:7: 警告：未使用的参数‘data’ [-Wunused-parameter]
+ void  MatrixFreePDE<dim>::getEnergy(const MatrixFree<dim,double> &data,
+       ^
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/calcFreeEnergy.cc:35:7: 警告：未使用的参数‘dst’ [-Wunused-parameter]
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/calcFreeEnergy.cc:35:7: 警告：未使用的参数‘src’ [-Wunused-parameter]
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/calcFreeEnergy.cc:35:7: 警告：未使用的参数‘cell_range’ [-Wunused-parameter]
+In file included from /home/qixinbo/phaseField/applications/wheeler/../../include/dealIIheaders.h:26:0,
+                 from /home/qixinbo/phaseField/applications/wheeler/main.cc:4:
+/opt/dealii/include/deal.II/matrix_free/fe_evaluation.h: In instantiation of ‘void dealii::FEEvaluation<dim, fe_degree, n_q_points_1d, n_components_, Number>::check_template_arguments(unsigned int) [with int dim = 2; int fe_degree = 1; int n_q_points_1d = 2; int n_components_ = 1; Number = double]’:
+/opt/dealii/include/deal.II/matrix_free/fe_evaluation.h:6347:33:   required from ‘dealii::FEEvaluation<dim, fe_degree, n_q_points_1d, n_components_, Number>::FEEvaluation(const dealii::MatrixFree<dim, Number>&, unsigned int, unsigned int) [with int dim = 2; int fe_degree = 1; int n_q_points_1d = 2; int n_components_ = 1; Number = double]’
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/invM.cc:34:86:   required from ‘void MatrixFreePDE<dim>::computeInvM() [with int dim = 2]’
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/init.cc:214:18:   required from ‘void MatrixFreePDE<dim>::init(unsigned int) [with int dim = 2]’
+/home/qixinbo/phaseField/applications/wheeler/main.cc:24:21:   required from here
+/opt/dealii/include/deal.II/matrix_free/fe_evaluation.h:6525:1: 警告：未使用的参数‘fe_no’ [-Wunused-parameter]
+ FEEvaluation<dim,fe_degree,n_q_points_1d,n_components_,Number>
+ ^
+/opt/dealii/include/deal.II/matrix_free/fe_evaluation.h: In instantiation of ‘void dealii::internal::check_vector_compatibility(const dealii::parallel::distributed::Vector<Number>&, const dealii::internal::MatrixFreeFunctions::DoFInfo&) [with Number = double]’:
+/opt/dealii/include/deal.II/matrix_free/fe_evaluation.h:2396:68:   required from ‘void dealii::FEEvaluationBase<dim, n_components_, Number>::read_write_operation(const VectorOperation&, VectorType**) const [with VectorType = dealii::parallel::distributed::Vector<double>; VectorOperation = dealii::internal::VectorDistributorLocalToGlobal<double>; int dim = 2; int n_components_ = 1; Number = double]’
+/opt/dealii/include/deal.II/matrix_free/fe_evaluation.h:2838:46:   required from ‘void dealii::FEEvaluationBase<dim, n_components_, Number>::distribute_local_to_global(VectorType&) const [with VectorType = dealii::parallel::distributed::Vector<double>; int dim = 2; int n_components_ = 1; Number = double]’
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/invM.cc:42:5:   required from ‘void MatrixFreePDE<dim>::computeInvM() [with int dim = 2]’
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/init.cc:214:18:   required from ‘void MatrixFreePDE<dim>::init(unsigned int) [with int dim = 2]’
+/home/qixinbo/phaseField/applications/wheeler/main.cc:24:21:   required from here
+/opt/dealii/include/deal.II/matrix_free/fe_evaluation.h:2155:8: 警告：未使用的参数‘vec’ [-Wunused-parameter]
+   void check_vector_compatibility (const parallel::distributed::Vector<Number>  &vec,
+        ^
+/opt/dealii/include/deal.II/matrix_free/fe_evaluation.h:2155:8: 警告：未使用的参数‘dof_info’ [-Wunused-parameter]
+In file included from /home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/matrixFreePDE.h:287:0,
+                 from /home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model.h:5,
+                 from /home/qixinbo/phaseField/applications/wheeler/main.cc:7:
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/computeLHS.cc: In instantiation of ‘void MatrixFreePDE<dim>::getLHS(const dealii::MatrixFree<dim, double>&, vectorType&, const vectorType&, const std::pair<unsigned int, unsigned int>&) const [with int dim = 2; vectorType = dealii::parallel::distributed::Vector<double>]’:
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/computeLHS.cc:28:31:   required from ‘void MatrixFreePDE<dim>::vmult(vectorType&, const vectorType&) const [with int dim = 2; vectorType = dealii::parallel::distributed::Vector<double>]’
+/opt/dealii/include/deal.II/lac/solver_cg.h:508:11:   required from ‘void dealii::SolverCG<VectorType>::solve(const MatrixType&, VectorType&, const VectorType&, const PreconditionerType&) [with MatrixType = MatrixFreePDE<2>; PreconditionerType = dealii::IdentityMatrix; VectorType = dealii::parallel::distributed::Vector<double>]’
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/solveIncrement.cc:68:5:   required from ‘void MatrixFreePDE<dim>::solveIncrement() [with int dim = 2]’
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/solve.cc:47:22:   required from ‘void MatrixFreePDE<dim>::solve() [with int dim = 2]’
+/home/qixinbo/phaseField/applications/wheeler/main.cc:25:21:   required from here
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/computeLHS.cc:43:7: 警告：未使用的参数‘data’ [-Wunused-parameter]
+ void  MatrixFreePDE<dim>::getLHS(const MatrixFree<dim,double> &data, 
+       ^
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/computeLHS.cc:43:7: 警告：未使用的参数‘dst’ [-Wunused-parameter]
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/computeLHS.cc:43:7: 警告：未使用的参数‘src’ [-Wunused-parameter]
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/../../../include/../src/matrixfree/computeLHS.cc:43:7: 警告：未使用的参数‘cell_range’ [-Wunused-parameter]
+In file included from /home/qixinbo/phaseField/applications/wheeler/main.cc:10:0:
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h: In instantiation of ‘void generalizedProblem<dim>::adaptiveRefine(unsigned int) [with int dim = 2]’:
+/home/qixinbo/phaseField/applications/wheeler/main.cc:52:1:   required from here
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h:632:6: 警告：未使用的参数‘currentIncrement’ [-Wunused-parameter]
+ void generalizedProblem<dim>::adaptiveRefine(unsigned int currentIncrement){
+      ^
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h: In instantiation of ‘void generalizedProblem<dim>::modifySolutionFields() [with int dim = 2]’:
+/home/qixinbo/phaseField/applications/wheeler/main.cc:52:1:   required from here
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h:1279:18: 警告：未使用的变量‘rad2’ [-Wunused-variable]
+           double rad2=(*tempNuceli[proc2])[i2*(dim+3)];
+                  ^
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h:1136:7: 警告：未使用的变量‘count’ [-Wunused-variable]
+   int count = 0;
+       ^
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h:1141:16: 警告：未使用的变量‘maxNumberNuclei’ [-Wunused-variable]
+   unsigned int maxNumberNuclei=5; // doesn't do anything currently
+                ^
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h:1151:16: 警告：未使用的变量‘k1’ [-Wunused-variable]
+   const double k1 = 0.0001; // nucleation probability constant
+                ^
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h:1152:16: 警告：未使用的变量‘k2’ [-Wunused-variable]
+   const double k2 = 1.0; // nucleation probability constant
+                ^
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h:1153:16: 警告：未使用的变量‘c0’ [-Wunused-variable]
+   const double c0 = 0.300; // baseline concentration?
+                ^
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h:1342:16: 警告：未使用的变量‘fieldIndex’ [-Wunused-variable]
+   unsigned int fieldIndex=this->getFieldIndex("n1");
+                ^
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h: In instantiation of ‘void generalizedProblem<dim>::getEnergy(const dealii::MatrixFree<dim, double>&, std::vector<dealii::parallel::distributed::Vector<double>*>&, const std::vector<dealii::parallel::distributed::Vector<double>*>&, const std::pair<unsigned int, unsigned int>&) [with int dim = 2]’:
+/home/qixinbo/phaseField/applications/wheeler/main.cc:52:1:   required from here
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h:486:7: 警告：未使用的参数‘dst’ [-Wunused-parameter]
+ void  generalizedProblem<dim>::getEnergy(const MatrixFree<dim,double> &data,
+       ^
+In file included from /home/qixinbo/phaseField/applications/wheeler/main.cc:8:0:
+/home/qixinbo/phaseField/applications/wheeler/equations.h: In instantiation of ‘void generalizedProblem<dim>::residualLHS(const std::vector<modelVariable<dim> >&, modelResidual<dim>&, dealii::Point<dim, dealii::VectorizedArray<double> >) const [with int dim = 2]’:
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h:449:52:   required from ‘void generalizedProblem<dim>::getLHS(const dealii::MatrixFree<dim, double>&, vectorType&, const vectorType&, const std::pair<unsigned int, unsigned int>&) const [with int dim = 2; vectorType = dealii::parallel::distributed::Vector<double>]’
+/home/qixinbo/phaseField/applications/wheeler/main.cc:52:1:   required from here
+/home/qixinbo/phaseField/applications/wheeler/equations.h:146:6: 警告：未使用的参数‘modelVarList’ [-Wunused-parameter]
+ void generalizedProblem<dim>::residualLHS(const std::vector<modelVariable<dim>> & modelVarList,
+      ^
+/home/qixinbo/phaseField/applications/wheeler/equations.h:146:6: 警告：未使用的参数‘modelRes’ [-Wunused-parameter]
+/home/qixinbo/phaseField/applications/wheeler/equations.h:146:6: 警告：未使用的参数‘q_point_loc’ [-Wunused-parameter]
+/home/qixinbo/phaseField/applications/wheeler/equations.h: In instantiation of ‘void generalizedProblem<dim>::residualRHS(const std::vector<std::vector<modelVariable<dim> >*>&, std::vector<modelResidual<dim> >&, dealii::Point<dim, dealii::VectorizedArray<double> >) const [with int dim = 2]’:
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h:309:66:   required from ‘void generalizedProblem<dim>::getRHS(const dealii::MatrixFree<dim, double>&, std::vector<dealii::parallel::distributed::Vector<double>*>&, const std::vector<std::vector<dealii::parallel::distributed::Vector<double>*> >&, const std::pair<unsigned int, unsigned int>&) const [with int dim = 2]’
+/home/qixinbo/phaseField/applications/wheeler/main.cc:52:1:   required from here
+/home/qixinbo/phaseField/applications/wheeler/equations.h:85:6: 警告：未使用的参数‘q_point_loc’ [-Wunused-parameter]
+ void generalizedProblem<dim>::residualRHS(const std::vector<std::vector<modelVariable<dim>>*> & modelVariablesList, 
+      ^
+/home/qixinbo/phaseField/applications/wheeler/equations.h: In instantiation of ‘void generalizedProblem<dim>::energyDensity(const std::vector<modelVariable<dim> >&, const dealii::VectorizedArray<double>&, dealii::Point<dim, dealii::VectorizedArray<double> >) [with int dim = 2]’:
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h:582:51:   required from ‘void generalizedProblem<dim>::getEnergy(const dealii::MatrixFree<dim, double>&, std::vector<dealii::parallel::distributed::Vector<double>*>&, const std::vector<dealii::parallel::distributed::Vector<double>*>&, const std::pair<unsigned int, unsigned int>&) [with int dim = 2]’
+/home/qixinbo/phaseField/applications/wheeler/main.cc:52:1:   required from here
+/home/qixinbo/phaseField/applications/wheeler/equations.h:163:6: 警告：未使用的参数‘q_point_loc’ [-Wunused-parameter]
+ void generalizedProblem<dim>::energyDensity(const std::vector<modelVariable<dim>> & modelVarList,
+      ^
+In file included from /home/qixinbo/phaseField/applications/wheeler/../../include/dealIIheaders.h:26:0,
+                 from /home/qixinbo/phaseField/applications/wheeler/main.cc:4:
+/opt/dealii/include/deal.II/matrix_free/fe_evaluation.h: In instantiation of ‘void dealii::FEEvaluation<dim, fe_degree, n_q_points_1d, n_components_, Number>::check_template_arguments(unsigned int) [with int dim = 2; int fe_degree = 1; int n_q_points_1d = 2; int n_components_ = 2; Number = double]’:
+/opt/dealii/include/deal.II/matrix_free/fe_evaluation.h:6347:33:   required from ‘dealii::FEEvaluation<dim, fe_degree, n_q_points_1d, n_components_, Number>::FEEvaluation(const dealii::MatrixFree<dim, Number>&, unsigned int, unsigned int) [with int dim = 2; int fe_degree = 1; int n_q_points_1d = 2; int n_components_ = 2; Number = double]’
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h:369:61:   required from ‘void generalizedProblem<dim>::getLHS(const dealii::MatrixFree<dim, double>&, vectorType&, const vectorType&, const std::pair<unsigned int, unsigned int>&) const [with int dim = 2; vectorType = dealii::parallel::distributed::Vector<double>]’
+/home/qixinbo/phaseField/applications/wheeler/main.cc:52:1:   required from here
+/opt/dealii/include/deal.II/matrix_free/fe_evaluation.h:6525:1: 警告：未使用的参数‘fe_no’ [-Wunused-parameter]
+ FEEvaluation<dim,fe_degree,n_q_points_1d,n_components_,Number>
+ ^
+In file included from /home/qixinbo/phaseField/applications/wheeler/main.cc:9:0:
+/home/qixinbo/phaseField/applications/wheeler/ICs_and_BCs.h: In instantiation of ‘void InitialConditionVec<dim>::vector_value(const dealii::Point<dim>&, dealii::Vector<double>&) const [with int dim = 2]’:
+/home/qixinbo/phaseField/applications/wheeler/main.cc:52:1:   required from here
+/home/qixinbo/phaseField/applications/wheeler/ICs_and_BCs.h:61:8: 警告：未使用的参数‘p’ [-Wunused-parameter]
+   void vector_value (const Point<dim> &p,Vector<double> &vector_IC) const
+        ^
+/home/qixinbo/phaseField/applications/wheeler/ICs_and_BCs.h:61:8: 警告：未使用的参数‘vector_IC’ [-Wunused-parameter]
+/home/qixinbo/phaseField/applications/wheeler/ICs_and_BCs.h: In instantiation of ‘double InitialCondition<dim>::value(const dealii::Point<dim>&, unsigned int) const [with int dim = 2]’:
+/home/qixinbo/phaseField/applications/wheeler/main.cc:52:1:   required from here
+/home/qixinbo/phaseField/applications/wheeler/ICs_and_BCs.h:13:10: 警告：未使用的参数‘component’ [-Wunused-parameter]
+   double value (const Point<dim> &p, const unsigned int component = 0) const
+          ^
+In file included from /home/qixinbo/phaseField/applications/wheeler/main.cc:10:0:
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h: In instantiation of ‘void vectorBCFunction<dim>::vector_value(const dealii::Point<dim>&, dealii::Vector<double>&) const [with int dim = 2]’:
+/home/qixinbo/phaseField/applications/wheeler/main.cc:52:1:   required from here
+/home/qixinbo/phaseField/applications/wheeler/../../src/models/coupled/generalized_model_functions.h:790:6: 警告：未使用的参数‘p’ [-Wunused-parameter]
+ void vectorBCFunction<dim>::vector_value(const Point<dim> &p, Vector<double> &values) const {
+      ^
+make[6]: *** [CMakeFiles/main.dir/main.cc.o] 错误 1
+make[5]: *** [CMakeFiles/main.dir/all] 错误 2
+make[4]: *** [all] 错误 2
+make[3]: *** [CMakeFiles/release] 错误 2
+make[2]: *** [CMakeFiles/release.dir/all] 错误 2
+make[1]: *** [CMakeFiles/release.dir/rule] 错误 2
+make: *** [release] 错误 2
