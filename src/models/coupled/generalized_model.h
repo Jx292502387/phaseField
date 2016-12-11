@@ -84,7 +84,7 @@ class generalizedProblem: public MatrixFreePDE<dim>
   //RHS implementation for explicit solve
   void getRHS(const MatrixFree<dim,double> &data, 
 	      std::vector<vectorType*> &dst, 
-	      const std::vector<vectorType*> &src,
+	      const std::vector< std::vector<vectorType*> > &src,
 	      const std::pair<unsigned int,unsigned int> &cell_range) const;
     
   //LHS implementation for implicit solve 
@@ -118,10 +118,10 @@ class generalizedProblem: public MatrixFreePDE<dim>
     				    const std::pair<unsigned int,unsigned int> &cell_range);
 
 
-  void residualRHS(const std::vector<modelVariable<dim>> & modelVarList,
-		  	  	  	  	  	  	  	  	  	  	  	  	  std::vector<modelResidual<dim>> & modelResidualsList,
-														  dealii::Point<dim, dealii::VectorizedArray<double> > q_point_loc) const;
-
+  void residualRHS(const std::vector<std::vector<modelVariable<dim>>*> & modelVarList,
+		   std::vector<modelResidual<dim>> & modelResidualsList,
+		   dealii::Point<dim, dealii::VectorizedArray<double> > q_point_loc) const;
+  
   void residualLHS(const std::vector<modelVariable<dim>> & modelVarList,
   		  	  	  	  	  	  	  	  	  	  	  	  	  modelResidual<dim> & modelRes,
 														  dealii::Point<dim, dealii::VectorizedArray<double> > q_point_loc) const;

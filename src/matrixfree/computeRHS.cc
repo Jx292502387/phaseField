@@ -16,8 +16,13 @@ void MatrixFreePDE<dim>::computeRHS(){
     (*residualSet[fieldIndex])=0.0;
   }
 
+  std::vector< std::vector<vectorType*> > src;
+  src.push_back(solutionSet);
+  if(numSolution == 2)
+    src.push_back(oldSolutionSet);
+
   //call to integrate and assemble 
-  matrixFreeObject.cell_loop (&MatrixFreePDE<dim>::getRHS, this, residualSet, solutionSet);
+  matrixFreeObject.cell_loop (&MatrixFreePDE<dim>::getRHS, this, residualSet, src);
 
   //end log
   computing_timer.exit_section("matrixFreePDE: computeRHS");

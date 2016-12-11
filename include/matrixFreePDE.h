@@ -173,6 +173,8 @@ class MatrixFreePDE:public Subscriptor
   std::vector<IndexSet*>               locally_relevant_dofsSet_nonconst;
   /*Vector all the solution vectors in the problem. In a multi-field problem, each primal field has a solution vector associated with it.*/ 
   std::vector<vectorType*>             solutionSet;
+  std::vector<vectorType*>             oldSolutionSet;
+  std::vector<vectorType*>             tempSolutionSet;
   /*Vector all the residual (RHS) vectors in the problem. In a multi-field problem, each primal field has a residual vector associated with it.*/
   std::vector<vectorType*>             residualSet;
   /*Vector of parallel solution transfer objects. This is used only when adaptive meshing is enabled.*/
@@ -216,7 +218,7 @@ class MatrixFreePDE:public Subscriptor
   /*Method to calculate RHS (implicit/explicit). This is an abstract method, so every model which inherits MatrixFreePDE<dim> has to implement this method.*/
   virtual void getRHS (const MatrixFree<dim,double> &data, 
 		       std::vector<vectorType*> &dst, 
-		       const std::vector<vectorType*> &src,
+		       const std::vector< std::vector<vectorType*> > &src,
 		       const std::pair<unsigned int,unsigned int> &cell_range) const = 0;
   
   //methods to apply dirichlet BC's

@@ -16,18 +16,27 @@ void MatrixFreePDE<dim>::solve(){
   getOutputTimeSteps(outputCondition,numOutputs,userGivenTimeStepList,outputTimeStepList);
   int currentOutput = 0;
 
+  // Solution temperary save
+  for(unsigned int fieldIndex=0; fieldIndex<fields.size(); fieldIndex++){
+    if (fields[fieldIndex].pdetype==PARABOLIC){
+      for (unsigned int dof=0; dof<solutionSet[fieldIndex]->local_size(); ++dof){
+	tempSolutionSet[fieldIndex]->local_element(dof) = solutionSet[fieldIndex]->local_element(dof);
+	  }
+      }
+  }
+
   //time dependent BVP
   if (isTimeDependentBVP){
     //output initial conditions for time dependent BVP
-	  if ((writeOutput) && (outputTimeStepList[currentOutput] == 0)) {
-			  outputResults();
-			  #ifdef calcEnergy
-			  if (calcEnergy == true){
-				  computeEnergy();
-				  outputFreeEnergy(freeEnergyValues);
-			  }
-			  #endif
-			  currentOutput++;
+    if ((writeOutput) && (outputTimeStepList[currentOutput] == 0)) {
+      outputResults();
+#ifdef calcEnergy
+      if (calcEnergy == true){
+	computeEnergy();
+	outputFreeEnergy(freeEnergyValues);
+      }
+#endif
+      currentOutput++;
     }
     
     //time stepping
@@ -53,17 +62,18 @@ void MatrixFreePDE<dim>::solve(){
       }
 
       //output results to file
-      if ((writeOutput) && (outputTimeStepList[currentOutput] == currentIncrement)) {
-    	  outputResults();
-		  #ifdef calcEnergy
-    	  if (calcEnergy == true){
-    		  computeEnergy();
-    		  outputFreeEnergy(freeEnergyValues);
-    	  }
-		  #endif
-    	  currentOutput++;
-      }
+  if ((writeOutput) && (outputTimeStepList[currentOutput] == currentIncrement)) {
+    outputResults();
+#ifdef calcEnergy
+    if (calcEnergy == true){
+      computeEnergy();
+      outputFreeEnergy(freeEnergyValues);
     }
+#endif
+    currentOutput++;
+  }
+    }
+    
   }
 
   //time independent BVP
@@ -91,6 +101,15 @@ void MatrixFreePDE<dim>::solve(){
 		#endif
     }
 
+  }
+
+  // oldSolution Update
+  for(unsigned int fieldIndex=0; fieldIndex<fields.size(); fieldIndex++){
+    if (fields[fieldIndex].pdetype==PARABOLIC){
+      for (unsigned int dof=0; dof<solutionSet[fieldIndex]->local_size(); ++dof){
+	oldSolutionSet[fieldIndex]->local_element(dof) = tempSolutionSet[fieldIndex]->local_element(dof);
+	  }
+      }
   }
 
   //log time

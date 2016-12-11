@@ -29,12 +29,6 @@ void MatrixFreePDE<dim>::solveIncrement(){
       for (unsigned int dof=0; dof<solutionSet[fieldIndex]->local_size(); ++dof){
 	solutionSet[fieldIndex]->local_element(dof)=			\
 	  invM.local_element(dof)*residualSet[fieldIndex]->local_element(dof);
-	if (fieldIndex == 0)
-	  {
-	    std::cout << "solution : " << solutionSet[fieldIndex]->local_element(dof)  << std::endl;
-	    std::cout << "old solution : " << oldSolutionSet[fieldIndex]->local_element(dof)  << std::endl;
-	    std::cout << "old old solution : " << oldOldSolutionSet[fieldIndex]->local_element(dof)  << std::endl;
-	  }
       }
       //
       //apply constraints

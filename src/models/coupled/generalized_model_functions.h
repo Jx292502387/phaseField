@@ -183,8 +183,8 @@ for (unsigned int i=0; i<num_var; i++){
 
 template <int dim>
 void generalizedProblem<dim>::getRHS(const MatrixFree<dim,double> &data,
-					       std::vector<vectorType*> &dst,
-					       const std::vector<vectorType*> &src,
+				     std::vector<vectorType*> &dst,
+	    const std::vector <std::vector<vectorType*> > &src,
 					       const std::pair<unsigned int,unsigned int> &cell_range) const{
 
 
@@ -192,118 +192,154 @@ void generalizedProblem<dim>::getRHS(const MatrixFree<dim,double> &data,
   std::vector<typeScalar> scalar_vars;
   std::vector<typeVector> vector_vars;
 
+  std::vector<typeScalar> old_scalar_vars;
+  std::vector<typeVector> old_vector_vars;
+
   for (unsigned int i=0; i<num_var; i++){
-	  if (varInfoListRHS[i].is_scalar){
-		  typeScalar var(data, i);
-		  scalar_vars.push_back(var);
-	  }
-	  else {
-		  typeVector var(data, i);
-		  vector_vars.push_back(var);
-	  }
+    if (varInfoListRHS[i].is_scalar){
+      typeScalar var(data, i);
+      scalar_vars.push_back(var);
+      old_scalar_vars.push_back(var);
+    }
+    else {
+      typeVector var(data, i);
+      vector_vars.push_back(var);
+      old_vector_vars.push_back(var);
+    }
   }
 
   std::vector<modelVariable<dim> > modelVarList;
+  std::vector<modelVariable<dim> > oldModelVarList;
   std::vector<modelResidual<dim> > modelResidualsList;
   modelVarList.reserve(num_var);
+  oldModelVarList.reserve(num_var);
   modelResidualsList.reserve(num_var);
+
+  std::vector<std::vector<modelVariable<dim>>*> modelVarListList;
+  modelVarListList.push_back(&modelVarList);
+  if(numSolution == 2)
+    modelVarListList.push_back(&oldModelVarList);
 
   //loop over cells
   for (unsigned int cell=cell_range.first; cell<cell_range.second; ++cell){
 
-	  // Initialize, read DOFs, and set evaulation flags for each variable
-	  for (unsigned int i=0; i<num_var; i++){
-		  if (varInfoListRHS[i].is_scalar) {
-			  scalar_vars[varInfoListRHS[i].scalar_or_vector_index].reinit(cell);
-			  scalar_vars[varInfoListRHS[i].scalar_or_vector_index].read_dof_values_plain(*src[varInfoListRHS[i].global_field_index]);
-			  scalar_vars[varInfoListRHS[i].scalar_or_vector_index].evaluate(need_value[i], need_gradient[i], need_hessian[i]);
-		  }
-		  else {
-			  vector_vars[varInfoListRHS[i].scalar_or_vector_index].reinit(cell);
-			  vector_vars[varInfoListRHS[i].scalar_or_vector_index].read_dof_values_plain(*src[varInfoListRHS[i].global_field_index]);
-			  vector_vars[varInfoListRHS[i].scalar_or_vector_index].evaluate(need_value[i], need_gradient[i], need_hessian[i]);
-		  }
+    // Initialize, read DOFs, and set evaulation flags for each variable
+    for (unsigned int i=0; i<num_var; i++){
+      if (varInfoListRHS[i].is_scalar) {
+	scalar_vars[varInfoListRHS[i].scalar_or_vector_index].reinit(cell);
+	scalar_vars[varInfoListRHS[i].scalar_or_vector_index].read_dof_values_plain(*src[0][varInfoListRHS[i].global_field_index]);
+	scalar_vars[varInfoListRHS[i].scalar_or_vector_index].evaluate(need_value[i], need_gradient[i], need_hessian[i]);
+	if (numSolution == 2)
+	  {
+	    old_scalar_vars[varInfoListRHS[i].scalar_or_vector_index].reinit(cell);
+	    old_scalar_vars[varInfoListRHS[i].scalar_or_vector_index].read_dof_values_plain(*src[1][varInfoListRHS[i].global_field_index]);
+	    old_scalar_vars[varInfoListRHS[i].scalar_or_vector_index].evaluate(need_value[i], need_gradient[i], need_hessian[i]);
 	  }
-
-	  unsigned int num_q_points;
-	  if (scalar_vars.size() > 0){
-		  num_q_points = scalar_vars[0].n_q_points;
+      }
+      else {
+	vector_vars[varInfoListRHS[i].scalar_or_vector_index].reinit(cell);
+	vector_vars[varInfoListRHS[i].scalar_or_vector_index].read_dof_values_plain(*src[0][varInfoListRHS[i].global_field_index]);
+	vector_vars[varInfoListRHS[i].scalar_or_vector_index].evaluate(need_value[i], need_gradient[i], need_hessian[i]);
+	if (numSolution == 2)
+	  {
+	    old_vector_vars[varInfoListRHS[i].scalar_or_vector_index].reinit(cell);
+	    old_vector_vars[varInfoListRHS[i].scalar_or_vector_index].read_dof_values_plain(*src[1][varInfoListRHS[i].global_field_index]);
+	    old_vector_vars[varInfoListRHS[i].scalar_or_vector_index].evaluate(need_value[i], need_gradient[i], need_hessian[i]);
 	  }
-	  else {
-		  num_q_points = vector_vars[0].n_q_points;
+      }
+    }
+
+    unsigned int num_q_points;
+    if (scalar_vars.size() > 0){
+      num_q_points = scalar_vars[0].n_q_points;
+    }
+    else {
+      num_q_points = vector_vars[0].n_q_points;
+    }
+    
+    //loop over quadrature points
+    for (unsigned int q=0; q<num_q_points; ++q){
+      
+      dealii::Point<dim, dealii::VectorizedArray<double> > q_point_loc;
+      if (scalar_vars.size() > 0){
+	q_point_loc = scalar_vars[0].quadrature_point(q);
+      }
+      else {
+	q_point_loc = vector_vars[0].quadrature_point(q);
+      }
+      
+      for (unsigned int i=0; i<num_var; i++){
+	if (varInfoListRHS[i].is_scalar) {
+	  if (need_value[i]){
+	    modelVarList[i].scalarValue = scalar_vars[varInfoListRHS[i].scalar_or_vector_index].get_value(q);
+	    if (numSolution == 2)
+	    oldModelVarList[i].scalarValue = old_scalar_vars[varInfoListRHS[i].scalar_or_vector_index].get_value(q);
 	  }
-
-	  //loop over quadrature points
-	  for (unsigned int q=0; q<num_q_points; ++q){
-
-		  dealii::Point<dim, dealii::VectorizedArray<double> > q_point_loc;
-		  if (scalar_vars.size() > 0){
-			  q_point_loc = scalar_vars[0].quadrature_point(q);
-		  }
-		  else {
-			  q_point_loc = vector_vars[0].quadrature_point(q);
-		  }
-
-		  for (unsigned int i=0; i<num_var; i++){
-			  if (varInfoListRHS[i].is_scalar) {
-				  if (need_value[i]){
-					  modelVarList[i].scalarValue = scalar_vars[varInfoListRHS[i].scalar_or_vector_index].get_value(q);
-				  }
-				  if (need_gradient[i]){
-					  modelVarList[i].scalarGrad = scalar_vars[varInfoListRHS[i].scalar_or_vector_index].get_gradient(q);
-				  }
-				  if (need_hessian[i]){
-					  modelVarList[i].scalarHess = scalar_vars[varInfoListRHS[i].scalar_or_vector_index].get_hessian(q);
-				  }
-			  }
-			  else {
-				  if (need_value[i]){
-					  modelVarList[i].vectorValue = vector_vars[varInfoListRHS[i].scalar_or_vector_index].get_value(q);
-				  }
-				  if (need_gradient[i]){
-					  modelVarList[i].vectorGrad = vector_vars[varInfoListRHS[i].scalar_or_vector_index].get_gradient(q);
-				  }
-				  if (need_hessian[i]){
-					  modelVarList[i].vectorHess = vector_vars[varInfoListRHS[i].scalar_or_vector_index].get_hessian(q);
-				  }
-			  }
-		  }
-
-		  // Calculate the residuals
-		  residualRHS(modelVarList,modelResidualsList,q_point_loc);
-
-		  // Submit values
-		  for (unsigned int i=0; i<num_var; i++){
-			  if (varInfoListRHS[i].is_scalar) {
-				  if (value_residual[i] == true){
-					  scalar_vars[varInfoListRHS[i].scalar_or_vector_index].submit_value(modelResidualsList[i].scalarValueResidual,q);
-				  }
-      			  if (gradient_residual[i] == true){
-      				  scalar_vars[varInfoListRHS[i].scalar_or_vector_index].submit_gradient(modelResidualsList[i].scalarGradResidual,q);
-      			  }
-      		  }
-      		  else {
-      			  if (value_residual[i] == true){
-      				  vector_vars[varInfoListRHS[i].scalar_or_vector_index].submit_value(modelResidualsList[i].vectorValueResidual,q);
-      			  }
-      			  if (gradient_residual[i] == true){
-      				  vector_vars[varInfoListRHS[i].scalar_or_vector_index].submit_gradient(modelResidualsList[i].vectorGradResidual,q);
-      			  }
-      		  }
-      	  }
-
+	  if (need_gradient[i]){
+	    modelVarList[i].scalarGrad = scalar_vars[varInfoListRHS[i].scalar_or_vector_index].get_gradient(q);
+	    if (numSolution == 2)
+	    oldModelVarList[i].scalarGrad = old_scalar_vars[varInfoListRHS[i].scalar_or_vector_index].get_gradient(q);
 	  }
-
-	  for (unsigned int i=0; i<num_var; i++){
-		  if (varInfoListRHS[i].is_scalar) {
-			  scalar_vars[varInfoListRHS[i].scalar_or_vector_index].integrate(value_residual[i], gradient_residual[i]);
-			  scalar_vars[varInfoListRHS[i].scalar_or_vector_index].distribute_local_to_global(*dst[varInfoListRHS[i].global_field_index]);
-		  }
-		  else {
-			  vector_vars[varInfoListRHS[i].scalar_or_vector_index].integrate(value_residual[i], gradient_residual[i]);
-			  vector_vars[varInfoListRHS[i].scalar_or_vector_index].distribute_local_to_global(*dst[varInfoListRHS[i].global_field_index]);
-		  }
+	  if (need_hessian[i]){
+	    modelVarList[i].scalarHess = scalar_vars[varInfoListRHS[i].scalar_or_vector_index].get_hessian(q);
+	    if (numSolution == 2)
+	    oldModelVarList[i].scalarHess = old_scalar_vars[varInfoListRHS[i].scalar_or_vector_index].get_hessian(q);
 	  }
+	}
+	else {
+	  if (need_value[i]){
+	    modelVarList[i].vectorValue = vector_vars[varInfoListRHS[i].scalar_or_vector_index].get_value(q);
+	    if (numSolution == 2)
+	    oldModelVarList[i].vectorValue = old_vector_vars[varInfoListRHS[i].scalar_or_vector_index].get_value(q);
+	  }
+	  if (need_gradient[i]){
+	    modelVarList[i].vectorGrad = vector_vars[varInfoListRHS[i].scalar_or_vector_index].get_gradient(q);
+	    if (numSolution == 2)
+	    oldModelVarList[i].vectorGrad = old_vector_vars[varInfoListRHS[i].scalar_or_vector_index].get_gradient(q);
+	  }
+	  if (need_hessian[i]){
+	    modelVarList[i].vectorHess = vector_vars[varInfoListRHS[i].scalar_or_vector_index].get_hessian(q);
+	    if (numSolution == 2)
+	    oldModelVarList[i].vectorHess = old_vector_vars[varInfoListRHS[i].scalar_or_vector_index].get_hessian(q);
+	  }
+	}
+      }
+
+      // Calculate the residuals
+      residualRHS(modelVarListList,modelResidualsList,q_point_loc);
+
+      // Submit values
+      for (unsigned int i=0; i<num_var; i++){
+	if (varInfoListRHS[i].is_scalar) {
+	  if (value_residual[i] == true){
+	    scalar_vars[varInfoListRHS[i].scalar_or_vector_index].submit_value(modelResidualsList[i].scalarValueResidual,q);
+	  }
+	  if (gradient_residual[i] == true){
+	    scalar_vars[varInfoListRHS[i].scalar_or_vector_index].submit_gradient(modelResidualsList[i].scalarGradResidual,q);
+	  }
+	}
+	else {
+	  if (value_residual[i] == true){
+	    vector_vars[varInfoListRHS[i].scalar_or_vector_index].submit_value(modelResidualsList[i].vectorValueResidual,q);
+	  }
+	  if (gradient_residual[i] == true){
+	    vector_vars[varInfoListRHS[i].scalar_or_vector_index].submit_gradient(modelResidualsList[i].vectorGradResidual,q);
+	  }
+	}
+      }
+
+    }
+
+    for (unsigned int i=0; i<num_var; i++){
+      if (varInfoListRHS[i].is_scalar) {
+	scalar_vars[varInfoListRHS[i].scalar_or_vector_index].integrate(value_residual[i], gradient_residual[i]);
+	scalar_vars[varInfoListRHS[i].scalar_or_vector_index].distribute_local_to_global(*dst[varInfoListRHS[i].global_field_index]);
+      }
+      else {
+	vector_vars[varInfoListRHS[i].scalar_or_vector_index].integrate(value_residual[i], gradient_residual[i]);
+	vector_vars[varInfoListRHS[i].scalar_or_vector_index].distribute_local_to_global(*dst[varInfoListRHS[i].global_field_index]);
+      }
+    }
   }
 }
 
@@ -714,14 +750,18 @@ void generalizedProblem<dim>::applyInitialConditions()
 unsigned int fieldIndex = 0;
 
 for (unsigned int var_index=0; var_index < num_var; var_index++){
-
-	  if (var_type[var_index] == "SCALAR"){
-		  VectorTools::interpolate (*this->dofHandlersSet[fieldIndex], InitialCondition<dim>(var_index), *this->solutionSet[fieldIndex]);
-		  fieldIndex++;
+  
+  if (var_type[var_index] == "SCALAR"){
+    VectorTools::interpolate (*this->dofHandlersSet[fieldIndex], InitialCondition<dim>(var_index), *this->solutionSet[fieldIndex]);
+    if(numSolution == 2)
+      VectorTools::interpolate (*this->dofHandlersSet[fieldIndex], InitialCondition<dim>(var_index), *this->oldSolutionSet[fieldIndex]);
+    fieldIndex++;
 	  }
-	  else {
-		  VectorTools::interpolate (*this->dofHandlersSet[fieldIndex], InitialConditionVec<dim>(var_index), *this->solutionSet[fieldIndex]);
-		  fieldIndex += dim;
+  else {
+    VectorTools::interpolate (*this->dofHandlersSet[fieldIndex], InitialConditionVec<dim>(var_index), *this->solutionSet[fieldIndex]);
+    if(numSolution == 2)
+    VectorTools::interpolate (*this->dofHandlersSet[fieldIndex], InitialConditionVec<dim>(var_index), *this->oldSolutionSet[fieldIndex]);
+    fieldIndex += dim;
 	  }
 }
 }

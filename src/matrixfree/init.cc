@@ -187,21 +187,23 @@
    //setup problem vectors
    pcout << "initializing parallel::distributed residual and solution vectors\n";
    for(unsigned int fieldIndex=0; fieldIndex<fields.size(); fieldIndex++){
-     vectorType *U,*oldU, *oldOldU, *R;
+     vectorType *U,*oldU,*tempU,*R;
      if (iter==0){
        U=new vectorType; R=new vectorType;
-       oldU=new vectorType; oldOldU = new vectorType;
+       oldU=new vectorType;
+       tempU=new vectorType;
        solutionSet.push_back(U); residualSet.push_back(R); 
        oldSolutionSet.push_back(oldU);
-       oldOldSolutionSet.push_back(oldOldU);
+       tempSolutionSet.push_back(tempU);
        matrixFreeObject.initialize_dof_vector(*R,  fieldIndex); *R=0;
      }
      else{
        U=solutionSet.at(fieldIndex); 
+       oldU=oldSolutionSet.at(fieldIndex); 
      }
      matrixFreeObject.initialize_dof_vector(*U,  fieldIndex); *U=0;
      matrixFreeObject.initialize_dof_vector(*oldU,  fieldIndex); *oldU=0;
-     matrixFreeObject.initialize_dof_vector(*oldOldU,  fieldIndex); *oldOldU=0;
+     matrixFreeObject.initialize_dof_vector(*tempU,  fieldIndex); *tempU=0;
      
      //initializing temporary dU vector required for implicit solves of the elliptic equation.
      //Assuming here that there is only one elliptic field in the problem
