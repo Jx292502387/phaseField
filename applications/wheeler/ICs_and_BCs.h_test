@@ -1,4 +1,4 @@
-#define r0 0.007
+#define r0 0.03
 
 template <int dim>
 class InitialCondition : public Function<dim>
@@ -32,7 +32,7 @@ public:
 #elif problemDIM==3
       r = p.distance(Point<dim>(spanX/2.0,spanY/2.0,spanZ/2.0));
 #endif
-      scalar_IC = -0.5*(1.0+std::tanh((r-r0)/dx));
+      scalar_IC = -0.5;
     }
     if (index == 1) 
     {
@@ -43,7 +43,7 @@ public:
 #elif problemDIM==3
       r = p.distance(Point<dim>(spanX/2.0,spanY/2.0,spanZ/2.0));
 #endif
-      scalar_IC = 0.5*(1.0+std::tanh((r-r0)/dx));
+      scalar_IC = 0.5;
     }
     return scalar_IC;
   }

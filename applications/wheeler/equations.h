@@ -40,8 +40,6 @@
 #define epsilonM 0.05
 #define coeff (epsilon*alpha*delta)
 
-#define An (n*(1.0-n)*(n-0.5+30.0*coeff*c*n*(1.0-n)))
-#define Bn ((n-oldn)*30.0*n*n*(1.0-n)*(1.0-n))
 //anisotropy gamma as a function of the components of the normal vector
 //current anisotropy has 4-fold or octahedral symmetry
 #if problemDIM==1
@@ -64,12 +62,15 @@
 
 //Allen-Cahn mobility (anisotropic)
 //#define MnV (1.0/(gamma*gamma+1e-10))
-
+#define An (n*(1.0-n)*(n-0.5+30.0*coeff*c*n*(1.0-n)))
+#define Bn ((n-oldn)*30.0*n*n*(1.0-n)*(1.0-n))
 //define required residuals (aniso defined in model)
+
 #define rcV   (c-constV(1.0/delta)*Bn)
-#define rcxV  (constV(timeStep)*cx)
+#define rcxV  (constV(-timeStep)*cx)
 #define rnV  (n+constV(timeStep/tau1)*An)
-#define rnxV (constV(tau2/tau1*timeStep)*(/*-aniso+*/nx))
+#define rnxV (constV(tau2*timeStep/tau1)*(-aniso))
+
 
 // =================================================================================
 // residualRHS
@@ -87,10 +88,10 @@ void generalizedProblem<dim>::residualRHS(const std::vector<std::vector<modelVar
      dealii::Point<dim, dealii::VectorizedArray<double> > q_point_loc) const {
 
 //c
-  scalarvalueType c = (*modelVariablesList[0])[0].scalarValue;
+ scalarvalueType c = (*modelVariablesList[0])[0].scalarValue;
 
  scalargradType cx = (*modelVariablesList[0])[0].scalarGrad;
-
+ 
 //n
  scalarvalueType n = (*modelVariablesList[0])[1].scalarValue;
  scalarvalueType oldn = (*modelVariablesList[1])[1].scalarValue;
@@ -102,7 +103,7 @@ scalargradType normal = nx/(normgradn+constV(1.0e-16));
 scalarvalueType gamma_scl = gamma;
 scalargradType aniso;
 #if problemDIM==1
-      aniso = gamma_scl*gamma_scl*nx
+ aniso = gamma_scl*gamma_scl*nx;
 #else
       scalargradType dgammadnorm;
       dgammadnorm[0]=gammanx;
