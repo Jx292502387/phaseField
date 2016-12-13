@@ -16,14 +16,6 @@ void MatrixFreePDE<dim>::solve(){
   getOutputTimeSteps(outputCondition,numOutputs,userGivenTimeStepList,outputTimeStepList);
   int currentOutput = 0;
 
-  // Solution temperary save
-  for(unsigned int fieldIndex=0; fieldIndex<fields.size(); fieldIndex++){
-    if (fields[fieldIndex].pdetype==PARABOLIC){
-      for (unsigned int dof=0; dof<solutionSet[fieldIndex]->local_size(); ++dof){
-	tempSolutionSet[fieldIndex]->local_element(dof) = solutionSet[fieldIndex]->local_element(dof);
-	  }
-      }
-  }
 
   //time dependent BVP
   if (isTimeDependentBVP){
@@ -51,6 +43,10 @@ void MatrixFreePDE<dim>::solve(){
       computing_timer.enter_section("matrixFreePDE: AMR");
       adaptiveRefine(currentIncrement);
       computing_timer.exit_section("matrixFreePDE: AMR");
+
+      // Solution temperary save
+      if(numSolution == 2)
+	updateSolutionSet(tempSolutionSet, solutionSet, "before calc: ");
  
       //solve time increment
       solveIncrement();
@@ -60,6 +56,9 @@ void MatrixFreePDE<dim>::solve(){
     	  constraintsDirichletSet[fieldIndex]->distribute(*solutionSet[fieldIndex]);
     	  solutionSet[fieldIndex]->update_ghost_values();
       }
+
+      if(numSolution == 2)
+	updateSolutionSet(oldSolutionSet, tempSolutionSet, "after calc: ");
 
       //output results to file
   if ((writeOutput) && (outputTimeStepList[currentOutput] == currentIncrement)) {
@@ -101,15 +100,6 @@ void MatrixFreePDE<dim>::solve(){
 		#endif
     }
 
-  }
-
-  // oldSolution Update
-  for(unsigned int fieldIndex=0; fieldIndex<fields.size(); fieldIndex++){
-    if (fields[fieldIndex].pdetype==PARABOLIC){
-      for (unsigned int dof=0; dof<solutionSet[fieldIndex]->local_size(); ++dof){
-	oldSolutionSet[fieldIndex]->local_element(dof) = tempSolutionSet[fieldIndex]->local_element(dof);
-	  }
-      }
   }
 
   //log time

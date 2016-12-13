@@ -15,7 +15,7 @@
 // Flags for whether the value, gradient, and Hessian are needed in the residual eqns
 #define need_val {true, true}
 #define need_grad {true, true}
-#define need_hess {false, true}
+#define need_hess {false, false}
 
 // Flags for whether the residual equation has a term multiplied by the test function
 // (need_val_residual) and/or the gradient of the test function (need_grad_residual)

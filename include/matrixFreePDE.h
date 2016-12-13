@@ -251,6 +251,9 @@ class MatrixFreePDE:public Subscriptor
   /*Returns index of given field name if exists, else throw error.*/
   unsigned int getFieldIndex(std::string _name);
 
+  void updateSolutionSet(std::vector<vectorType*> &dst,
+			 std::vector<vectorType*> &src,
+			 std::string flag);
 
   std::vector<double> freeEnergyValues;
   void outputFreeEnergy(std::vector<double>& freeEnergyValues);
@@ -298,5 +301,6 @@ class MatrixFreePDE:public Subscriptor
 #include "../src/matrixfree/calcFreeEnergy.cc"
 #include "../src/matrixfree/integrate_and_shift_field.cc"
 #include "../src/matrixfree/getOutputTimeSteps.cc"
+#include "../src/matrixfree/updateSolutionSet.cc"
 
 #endif
