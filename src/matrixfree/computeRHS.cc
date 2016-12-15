@@ -15,7 +15,6 @@ void MatrixFreePDE<dim>::computeRHS(){
   for(unsigned int fieldIndex=0; fieldIndex<fields.size(); fieldIndex++){
     (*residualSet[fieldIndex])=0.0;
   }
-
   std::vector< std::vector<vectorType*> > src;
   src.push_back(solutionSet);
   if(numSolution == 2)

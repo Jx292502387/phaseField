@@ -6,7 +6,7 @@
 #define numSolution 2
 // Set the number of dimensions (1, 2, or 3 for a 1D, 2D, or 3D calculation)
 // =================================================================================
-#define problemDIM 2
+#define problemDIM 3
 
 // =================================================================================
 // Set the length of the domain in all three dimensions
@@ -24,20 +24,20 @@
 #define subdivisionsX 1
 #define subdivisionsY 1
 #define subdivisionsZ 1
-#define refineFactor 8
+#define refineFactor 6
 
 // Set the polynomial degree of the element (suggested values: 1 or 2)
-#define finiteElementDegree 1
+#define finiteElementDegree 2
 
 // =================================================================================
 // Set the time step parameters
 // =================================================================================
 // The size of the time step
-#define timeStep 1.0e-7
+#define timeStep 1.0e-6
 
 // The simulation ends when either timeFinal is reached or the number of time steps
 // equals timeIncrements
-#define timeFinal 0.01
+#define timeFinal 0.02
 #define timeIncrements 400000
 
 // =================================================================================
@@ -52,7 +52,7 @@
 
 // Number of times the program outputs the fields (total number for "EQUAL_SPACING"
 // and "LOG_SPACING", number per decade for "N_PER_DECADE", ignored for "LIST")
-#define numOutputs 50
+#define numOutputs 100
 
 // User-defined list of time steps where the program should output. Only used if
 // outputCondition is "LIST"

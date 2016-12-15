@@ -184,9 +184,40 @@ for (unsigned int i=0; i<num_var; i++){
 template <int dim>
 void generalizedProblem<dim>::getRHS(const MatrixFree<dim,double> &data,
 				     std::vector<vectorType*> &dst,
-	    const std::vector <std::vector<vectorType*> > &src,
-					       const std::pair<unsigned int,unsigned int> &cell_range) const{
+				     const std::vector <std::vector<vectorType*> > &src,
+				     const std::pair<unsigned int,unsigned int> &cell_range) const{
+  /*
+  //test code
+FEEvaluation<dim,2> current (data), old (data);
+for (unsigned int cell=cell_range.first; cell<cell_range.second; ++cell)
+{
+current.reinit (cell);
+old.reinit (cell);
+ current.read_dof_values (*src[0][1]);
+old.read_dof_values (*src[1][1]);
+current.evaluate (true, true, true);
+old.evaluate (true, false, false);
+for (unsigned int q=0; q<current.n_q_points; ++q)
+{
+const VectorizedArray<double> current_value = current.get_value(q);
+const VectorizedArray<double> old_value = old.get_value(q);
 
+ std::cout << "value: " << current_value[0] << std::endl;
+ std::cout << "grad: " << current.get_gradient(q)[0][0] << std::endl;
+ double TEMP = current.get_hessian(q)[0][0][0];
+ std::cout << "test hessian 0 0: " << TEMP << std::endl;
+ if (TEMP > 1.0e-16)
+   {
+
+ getchar();
+   }
+}
+ current.integrate (true,true);
+current.distribute_local_to_global (dst);
+}
+
+// end of test code
+*/
 
   //initialize FEEvaulation objects
   std::vector<typeScalar> scalar_vars;
@@ -256,7 +287,7 @@ void generalizedProblem<dim>::getRHS(const MatrixFree<dim,double> &data,
     else {
       num_q_points = vector_vars[0].n_q_points;
     }
-    
+
     //loop over quadrature points
     for (unsigned int q=0; q<num_q_points; ++q){
       

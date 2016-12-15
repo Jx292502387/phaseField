@@ -52,7 +52,7 @@
 
 // Number of times the program outputs the fields (total number for "EQUAL_SPACING"
 // and "LOG_SPACING", number per decade for "N_PER_DECADE", ignored for "LIST")
-#define numOutputs 50
+#define numOutputs 100
 
 // User-defined list of time steps where the program should output. Only used if
 // outputCondition is "LIST"

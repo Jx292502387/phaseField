@@ -51,10 +51,18 @@
 #define gamma (1.0+epsilonM*(4.0*(normal[0]*normal[0]*normal[0]*normal[0]+normal[1]*normal[1]*normal[1]*normal[1]+normal[2]*normal[2]*normal[2]*normal[2])-3.0))
 #endif
 
+#define gammax (epsilonM*16.0*normal[0]*normal[0]*normal[0]*normalx[0][0])
+#define gammay (epsilonM*16.0*normal[1]*normal[1]*normal[1]*normalx[1][1])
+#define gammaz (epsilonM*16.0*normal[2]*normal[2]*normal[2]*normalx[2][2])
+
 //derivatives of gamma with respect to the components of the unit normal
 #define gammanx (epsilonM*16.0*normal[0]*normal[0]*normal[0])
 #define gammany (epsilonM*16.0*normal[1]*normal[1]*normal[1])
 #define gammanz (epsilonM*16.0*normal[2]*normal[2]*normal[2])
+
+#define gammanxx (epsilonM*48.0*normal[0]*normal[0]*normalx[0][0])
+#define gammanyy (epsilonM*48.0*normal[1]*normal[1]*normalx[1][1])
+#define gammanzz (epsilonM*48.0*normal[2]*normal[2]*normalx[2][2])
 
 //Allen-Cahn mobility (isotropic)
 #define tau1 (epsilon*epsilon/m)
@@ -68,8 +76,8 @@
 
 #define rcV   (c-constV(1.0/delta)*Bn)
 #define rcxV  (constV(-timeStep)*cx)
-#define rnV  (n+constV(timeStep/tau1)*An)
-#define rnxV (constV(tau2*timeStep/tau1)*(-aniso))
+#define rnV  (n+constV(timeStep/tau1)*(constV(tau2)*aniso+An))
+#define rnxV (constV(tau2*timeStep/tau1)*(-nx))
 
 
 // =================================================================================
@@ -85,7 +93,7 @@
 template <int dim>
 void generalizedProblem<dim>::residualRHS(const std::vector<std::vector<modelVariable<dim>>*> & modelVariablesList, 
      std::vector<modelResidual<dim>> & modelResidualsList, 
-     dealii::Point<dim, dealii::VectorizedArray<double> > q_point_loc) const {
+					  dealii::Point<dim, dealii::VectorizedArray<double> > q_point_loc) const {
 
 //c
  scalarvalueType c = (*modelVariablesList[0])[0].scalarValue;
@@ -96,28 +104,49 @@ void generalizedProblem<dim>::residualRHS(const std::vector<std::vector<modelVar
  scalarvalueType n = (*modelVariablesList[0])[1].scalarValue;
  scalarvalueType oldn = (*modelVariablesList[1])[1].scalarValue;
  scalargradType nx = (*modelVariablesList[0])[1].scalarGrad;
+ scalarhessType nxx = (*modelVariablesList[0])[1].scalarHess;
 
 // anisotropy code
-scalarvalueType normgradn = std::sqrt(nx.norm_square());
-scalargradType normal = nx/(normgradn+constV(1.0e-16));
-scalarvalueType gamma_scl = gamma;
-scalargradType aniso;
-#if problemDIM==1
- aniso = gamma_scl*gamma_scl*nx;
-#else
-      scalargradType dgammadnorm;
-      dgammadnorm[0]=gammanx;
-      dgammadnorm[1]=gammany;
+ scalarvalueType normgradn = std::sqrt(nx.norm_square());
+ scalargradType normal = nx/(normgradn+constV(1.0e-16));
+ scalarhessType normalx = nxx/(normgradn+constV(1.0e-16));
+ scalarvalueType gamma_scl = gamma;
+ scalarvalueType aniso = constV(0.0);
+
+#if problemDIM>1
+ scalargradType dgammadnorm;
+ dgammadnorm[0]=gammanx;
+ dgammadnorm[1]=gammany;
+ 
+ scalargradType dgammadnormdx;
+ dgammadnormdx[0] = gammanxx;
+ dgammadnormdx[1] = gammanyy;
+
+ scalargradType gammax_scl;
+ gammax_scl[0] = gammax;
+ gammax_scl[1] = gammay;
+
 #if problemDIM>2
-      dgammadnorm[2]=gammanz;
+ dgammadnorm[2]=gammanz;
+ dgammadnormdx[2] = gammanzz;
+ gammax_scl[2] = gammaz;
 #endif
       for (unsigned int i=0; i<problemDIM; ++i){
-	      for (unsigned int j=0; j<problemDIM; ++j){
-		      aniso[i] += -normal[i]*normal[j]*dgammadnorm[j];
-		      if (i==j) aniso[i] +=dgammadnorm[j];
-	      }
+	aniso += normgradn*(gammax_scl[i]*dgammadnorm[i]
+			    +gamma_scl*dgammadnormdx[i]);
+	/*	
+	if (n[0]>0.1 && n[0]<0.9)
+	  std::cout << "aniso: " << aniso[0] << std::endl
+		    << "normxx: "<< normalx[0][0][0] << std::endl
+		    << "normyy: "<< normalx[1][1][0] << std::endl
+		    << "normzz: "<< normalx[2][2][0] << std::endl
+		    << "normgrad: "<< normgradn[0] << std::endl
+		    << "gammax: " << gammax_scl[i][0] << std::endl
+		    << "dgammadnorm: " << dgammadnorm[i][0] << std::endl
+		    << "gamma: " << gamma_scl[0] << std::endl
+		    << "dgammadnormdx: " << dgammadnormdx[i][0] <<std::endl;
+	*/
       }
-      aniso = gamma_scl*(aniso*normgradn+gamma_scl*nx);
 #endif
 // end anisotropy code
 
