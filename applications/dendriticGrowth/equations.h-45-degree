@@ -1,4 +1,6 @@
-// List of variables and residual equations for the coupled Allen-Cahn/Cahn-Hilliard with regularized anisotropic interfacial energy example application
+// This version is for 45 degree rotation 
+// The code is based on the model of Wheeler et al.:
+// Wheeler, A. A., Murray, B. T. & Schaefer, R. J. Computation of dendrites using a phase field model. Physica D 66, 243-262, (1993).
 
 // =================================================================================
 // Define the variables in the model
@@ -56,9 +58,17 @@
 #define gammany (epsilonM*(-4.0*(normal[0]-normal[1])*(normal[0]-normal[1])*(normal[0]-normal[1])+4.0*(normal[0]+normal[1])*(normal[0]+normal[1])*(normal[0]+normal[1])))
 #define gammanz (epsilonM*16.0*normal[2]*normal[2]*normal[2])
 
+#if problemDIM==2
+#define gammax (gammanx*normalx[0][0]+gammany*normalx[0][1])
+#define gammay (gammanx*normalx[1][0]+gammany*normalx[1][1])
+#define gammaz (gammanx*normalx[2][0]+gammany*normalx[2][1])
+
+#elif problemDIM==3
 #define gammax (gammanx*normalx[0][0]+gammany*normalx[0][1]+gammanz*normalx[0][2])
 #define gammay (gammanx*normalx[1][0]+gammany*normalx[1][1]+gammanz*normalx[1][2])
 #define gammaz (gammanx*normalx[2][0]+gammany*normalx[2][1]+gammanz*normalx[2][2])
+#endif
+
 
 #define gammanxx (epsilonM*(12.0*(normal[0]-normal[1])*(normal[0]-normal[1])+12.0*(normal[0]+normal[1])*(normal[0]+normal[1]))*normalx[0][0])
 #define gammanyy (epsilonM*(12.0*(normal[0]-normal[1])*(normal[0]-normal[1])+12.0*(normal[0]+normal[1])*(normal[0]+normal[1]))*normalx[1][1])

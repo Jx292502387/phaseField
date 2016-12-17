@@ -58,9 +58,16 @@
 #define gammany (epsilonM*16.0*normal[1]*normal[1]*normal[1])
 #define gammanz (epsilonM*16.0*normal[2]*normal[2]*normal[2])
 
+#if problemDIM==2
+#define gammax (gammanx*normalx[0][0]+gammany*normalx[0][1])
+#define gammay (gammanx*normalx[1][0]+gammany*normalx[1][1])
+#define gammaz (gammanx*normalx[2][0]+gammany*normalx[2][1])
+
+#elif problemDIM==3
 #define gammax (gammanx*normalx[0][0]+gammany*normalx[0][1]+gammanz*normalx[0][2])
 #define gammay (gammanx*normalx[1][0]+gammany*normalx[1][1]+gammanz*normalx[1][2])
 #define gammaz (gammanx*normalx[2][0]+gammany*normalx[2][1]+gammanz*normalx[2][2])
+#endif
 
 #define gammanxx (epsilonM*48.0*normal[0]*normal[0]*normalx[0][0])
 #define gammanyy (epsilonM*48.0*normal[1]*normal[1]*normalx[1][1])
