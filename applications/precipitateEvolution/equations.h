@@ -110,9 +110,7 @@ double sfts_const3[3][3]={{0.0225, 0.0069,0},{0.0069,0.0305,0},{0,0,-0.00270}};
 // each residual equation. The index for each variable in these lists corresponds to
 // the order it is defined at the top of this file (starting at 0).
 template <int dim>
-void generalizedProblem<dim>::residualRHS(const std::vector<modelVariable<dim>> & modelVariablesList,
-												std::vector<modelResidual<dim>> & modelResidualsList,
-												dealii::Point<dim, dealii::VectorizedArray<double> > q_point_loc) const {
+void generalizedProblem<dim>::residualRHS(const std::vector<modelVariable<dim>> & modelVariablesList, std::vector<modelResidual<dim>> & modelResidualsList, dealii::Point<dim, dealii::VectorizedArray<double> > q_point_loc) const {
 
 // The concentration and its derivatives (names here should match those in the macros above)
 scalarvalueType c = modelVariablesList[0].scalarValue;
@@ -138,7 +136,7 @@ vectorgradType ruxV;
 vectorhessType uxx;
 
 if (c_dependent_misfit == true){
-	uxx = modelVariablesList[4].vectorHess;
+  uxx = modelVariablesList[4].vectorHess;
 }
 
 // Calculate the stress-free transformation strain and its derivatives at the quadrature point
@@ -146,20 +144,20 @@ dealii::Tensor<2, problemDIM, dealii::VectorizedArray<double> > sfts1, sfts1c, s
 
 for (unsigned int i=0; i<dim; i++){
 for (unsigned int j=0; j<dim; j++){
-	  // Polynomial fits for the stress-free transformation strains, of the form: sfts = a_p * c + b_p
-	  sfts1[i][j] = constV(sfts_linear1[i][j])*c + constV(sfts_const1[i][j]);
-	  sfts1c[i][j] = constV(sfts_linear1[i][j]);
-	  sfts1cc[i][j] = constV(0.0);
+  // Polynomial fits for the stress-free transformation strains, of the form: sfts = a_p * c + b_p
+  sfts1[i][j] = constV(sfts_linear1[i][j])*c + constV(sfts_const1[i][j]);
+  sfts1c[i][j] = constV(sfts_linear1[i][j]);
+  sfts1cc[i][j] = constV(0.0);
 
-	  // Polynomial fits for the stress-free transformation strains, of the form: sfts = a_p * c + b_p
-	  sfts2[i][j] = constV(sfts_linear2[i][j])*c + constV(sfts_const2[i][j]);
-	  sfts2c[i][j] = constV(sfts_linear1[i][j]);
-	  sfts2cc[i][j] = constV(0.0);
+  // Polynomial fits for the stress-free transformation strains, of the form: sfts = a_p * c + b_p
+  sfts2[i][j] = constV(sfts_linear2[i][j])*c + constV(sfts_const2[i][j]);
+  sfts2c[i][j] = constV(sfts_linear1[i][j]);
+  sfts2cc[i][j] = constV(0.0);
 
-	  // Polynomial fits for the stress-free transformation strains, of the form: sfts = a_p * c + b_p
-	  sfts3[i][j] = constV(sfts_linear3[i][j])*c + constV(sfts_const3[i][j]);
-	  sfts3c[i][j] = constV(sfts_linear3[i][j]);
-	  sfts3cc[i][j] = constV(0.0);
+  // Polynomial fits for the stress-free transformation strains, of the form: sfts = a_p * c + b_p
+  sfts3[i][j] = constV(sfts_linear3[i][j])*c + constV(sfts_const3[i][j]);
+  sfts3c[i][j] = constV(sfts_linear3[i][j]);
+  sfts3cc[i][j] = constV(0.0);
 }
 }
 
@@ -168,7 +166,7 @@ dealii::VectorizedArray<double> E2[dim][dim], S[dim][dim];
 
 for (unsigned int i=0; i<dim; i++){
 for (unsigned int j=0; j<dim; j++){
-	  E2[i][j]= constV(0.5)*(ux[i][j]+ux[j][i])-( sfts1[i][j]*h1V + sfts2[i][j]*h2V + sfts3[i][j]*h3V);
+  E2[i][j]= constV(0.5)*(ux[i][j]+ux[j][i])-( sfts1[i][j]*h1V + sfts2[i][j]*h2V + sfts3[i][j]*h3V);
 
 }
 }
@@ -182,9 +180,9 @@ if (n_dependent_stiffness == true){
 dealii::VectorizedArray<double> sum_hV;
 sum_hV = h1V+h2V+h3V;
 for (unsigned int i=0; i<2*dim-1+dim/3; i++){
-	  for (unsigned int j=0; j<2*dim-1+dim/3; j++){
-		  CIJ_combined[i][j] = CIJ_list[0][i][j]*(constV(1.0)-sum_hV) + CIJ_list[1][i][j]*sum_hV;
-	  }
+  for (unsigned int j=0; j<2*dim-1+dim/3; j++){
+    CIJ_combined[i][j] = CIJ_list[0][i][j]*(constV(1.0)-sum_hV) + CIJ_list[1][i][j]*sum_hV;
+  }
 }
 computeStress<dim>(CIJ_combined, E2, S);
 }
@@ -228,9 +226,9 @@ if (n_dependent_stiffness == true){
 //computeStress<dim>(CIJ_diff, E2, S2);
 	computeStress<dim>(CIJ_list[1]-CIJ_list[0], E2, S2);
 for (unsigned int i=0; i<dim; i++){
-	  for (unsigned int j=0; j<dim; j++){
-		  heterMechAC1 += S2[i][j]*E2[i][j];
-	  }
+  for (unsigned int j=0; j<dim; j++){
+    heterMechAC1 += S2[i][j]*E2[i][j];
+  }
 }
 // Aside from HnpV, heterMechAC1, heterMechAC2, and heterMechAC3 are equal
 heterMechAC2 = 0.5*hn2V*heterMechAC1;
@@ -243,37 +241,32 @@ heterMechAC1 = 0.5*hn1V*heterMechAC1;
 scalargradType grad_mu_el;
 
 if (c_dependent_misfit == true){
-	dealii::VectorizedArray<double> E3[dim][dim], S3[dim][dim];
+  dealii::VectorizedArray<double> E3[dim][dim], S3[dim][dim];
+  
+  for (unsigned int i=0; i<dim; i++){
+    for (unsigned int j=0; j<dim; j++){
+      E3[i][j] =  -( sfts1c[i][j]*h1V + sfts2c[i][j]*h2V + sfts3c[i][j]*h3V);
+    }
+  }
 
-	for (unsigned int i=0; i<dim; i++){
-		for (unsigned int j=0; j<dim; j++){
-			E3[i][j] =  -( sfts1c[i][j]*h1V + sfts2c[i][j]*h2V + sfts3c[i][j]*h3V);
-		}
-	}
+  if (n_dependent_stiffness == true){
+    computeStress<dim>(CIJ_combined, E3, S3);
+  }
+  else{
+    computeStress<dim>(CIJ_list[0], E3, S3);
+  }
 
+  for (unsigned int i=0; i<dim; i++){
+    for (unsigned int j=0; j<dim; j++){
+      for (unsigned int k=0; k<dim; k++){
+	grad_mu_el[k] += S3[i][j] * (constV(0.5)*(uxx[i][j][k]+uxx[j][i][k]) + E3[i][j]*cx[k] - (sfts1[i][j]*hn1V*n1x[k] + sfts2[i][j]*hn2V*n2x[k] + sfts3[i][j]*hn3V*n3x[k]));
+	grad_mu_el[k]+= - S[i][j] * (sfts1c[i][j]*hn1V*n1x[k] + sfts2c[i][j]*hn2V*n2x[k] + sfts3c[i][j]*hn3V*n3x[k] + (sfts1cc[i][j]*h1V + sfts2cc[i][j]*h2V + sfts3cc[i][j]*h3V)*cx[k]);
 	if (n_dependent_stiffness == true){
-		computeStress<dim>(CIJ_combined, E3, S3);
+	  grad_mu_el[k]+= - S2[i][j] * (sfts1c[i][j]*hn1V*n1x[k] + sfts2c[i][j]*hn2V*n2x[k] + sfts3c[i][j]*hn3V*n3x[k]);
 	}
-	else{
-		computeStress<dim>(CIJ_list[0], E3, S3);
-	}
-
-	for (unsigned int i=0; i<dim; i++){
-		for (unsigned int j=0; j<dim; j++){
-			for (unsigned int k=0; k<dim; k++){
-				grad_mu_el[k] += S3[i][j] * (constV(0.5)*(uxx[i][j][k]+uxx[j][i][k]) + E3[i][j]*cx[k]
-														  - (sfts1[i][j]*hn1V*n1x[k] + sfts2[i][j]*hn2V*n2x[k] + sfts3[i][j]*hn3V*n3x[k]));
-
-				grad_mu_el[k]+= - S[i][j] * (sfts1c[i][j]*hn1V*n1x[k] + sfts2c[i][j]*hn2V*n2x[k] + sfts3c[i][j]*hn3V*n3x[k]
-														  + (sfts1cc[i][j]*h1V + sfts2cc[i][j]*h2V + sfts3cc[i][j]*h3V)*cx[k]);
-
-				if (n_dependent_stiffness == true){
-					grad_mu_el[k]+= - S2[i][j] * (sfts1c[i][j]*hn1V*n1x[k] + sfts2c[i][j]*hn2V*n2x[k] + sfts3c[i][j]*hn3V*n3x[k]);
-
-				}
-			}
-		}
-	}
+      }
+    }
+  }
 }
 
 

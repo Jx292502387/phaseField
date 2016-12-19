@@ -87,7 +87,7 @@
 #define rcV   (c-constV(1.0/delta)*Bn)
 #define rcxV  (constV(-timeStep)*cx)
 #define rnV  (n+constV(timeStep/tau1)*(constV(tau2)*aniso+An))
-#define rnxV (constV(tau2*timeStep/tau1)*(-nx))
+#define rnxV (constV(tau2*timeStep/tau1)*(-gamma*gamma*nx))
 
 
 // =================================================================================

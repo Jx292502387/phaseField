@@ -1,6 +1,6 @@
+// This version is for 45 degree rotation 
 // The code is based on the model of Wheeler et al.:
 // Wheeler, A. A., Murray, B. T. & Schaefer, R. J. Computation of dendrites using a phase field model. Physica D 66, 243-262, (1993).
-
 
 // =================================================================================
 // Define the variables in the model
@@ -42,21 +42,45 @@
 #define epsilonM 0.05
 #define coeff (epsilon*alpha*delta)
 
+//------------rotation code start---------------//
+
+//three Euler angle for rotation (unit: rad)
+double yaw 3.14159/4.0;
+double pitch 0.0;
+double roll 0.0;
+
+// rotation matrix
+double m11 = std::cos(yaw)*std::cos(pitch);
+double m12 = std::cos(yaw)*std::sin(pitch)*std::sin(roll)-std::sin(yaw)*sin::cos(roll);
+double m13 = std::cos(yaw)*std::sin(pitch)*std::cos(roll)+std::sin(yaw)*std::sin(roll);
+double m21 = std::sin(yaw)*std::cos(pitch);
+double m22 = std::sin(yaw)*std::sin(pitch)*std::sin(roll)+std::cos(yaw)*std::cos(roll);
+double m23 = std::sin(yaw)*std::sin(pitch)*std::cos(roll)-std::cos(yaw)*std::sin(roll);
+double m31 = -std::sin(pitch);
+double m32 = std::cos(pitch)*std::sin(roll);
+double m33 = std::cos(pitch)*std::cos(roll);
+
+#define normal0 (m11*normal[0]+m12*normal[1]+m13*normal[2])
+#define normal1 (m21*normal[0]+m22*normal[1]+m23*normal[2])
+#define normal2 (m31*normal[0]+m32*normal[1]+m33*normal[2])
+
+//------------rotation code end----------------//
+
 //anisotropy gamma as a function of the components of the normal vector
 //current anisotropy has 4-fold or octahedral symmetry
 #if problemDIM==1
 #define gamma 1.0
 #elif problemDIM==2
 //writing out powers instead of using std::pow(double,double) for performance reasons
-#define gamma (1.0+epsilonM*(4.0*(normal[0]*normal[0]*normal[0]*normal[0]+normal[1]*normal[1]*normal[1]*normal[1])-3.0))
+#define gamma (1.0+epsilonM*(4.0*(normal0*normal0*normal0*normal0+normal1*normal1*normal1*normal1)-3.0))
 #else
-#define gamma (1.0+epsilonM*(4.0*(normal[0]*normal[0]*normal[0]*normal[0]+normal[1]*normal[1]*normal[1]*normal[1]+normal[2]*normal[2]*normal[2]*normal[2])-3.0))
+#define gamma (1.0+epsilonM*(4.0*(normal0*normal0*normal0*normal0+normal1*normal1*normal1*normal1+normal2*normal2*normal2*normal2)-3.0))
 #endif
 
 //derivatives of gamma with respect to the components of the unit normal
-#define gammanx (epsilonM*16.0*normal[0]*normal[0]*normal[0])
-#define gammany (epsilonM*16.0*normal[1]*normal[1]*normal[1])
-#define gammanz (epsilonM*16.0*normal[2]*normal[2]*normal[2])
+#define gammanx (epsilonM*16.0*(m11*normal0*normal0*normal0+m21*normal1*normal1*normal1+m31*normal2*normal2*normal2))
+#define gammany (epsilonM*16.0*(m12*normal0*normal0*normal0+m22*normal1*normal1*normal1+m32*normal2*normal2*normal2))
+#define gammanz (epsilonM*16.0*(m13*normal0*normal0*normal0+m23*normal1*normal1*normal1+m33*normal2*normal2*normal2))
 
 #if problemDIM==2
 #define gammax (gammanx*normalx[0][0]+gammany*normalx[0][1])
@@ -69,8 +93,12 @@
 #define gammaz (gammanx*normalx[2][0]+gammany*normalx[2][1]+gammanz*normalx[2][2])
 #endif
 
-#define gammanxx (epsilonM*48.0*normal[0]*normal[0]*normalx[0][0])
+#define gammanxx (epsilonM*48.0*(normal0*normal0*normalx[0][0])
 #define gammanyy (epsilonM*48.0*normal[1]*normal[1]*normalx[1][1])
+#define gammanzz (epsilonM*48.0*normal[2]*normal[2]*normalx[2][2])
+
+#define gammanxx (epsilonM*(12.0*(normal[0]-normal[1])*(normal[0]-normal[1])+12.0*(normal[0]+normal[1])*(normal[0]+normal[1]))*normalx[0][0])
+#define gammanyy (epsilonM*(12.0*(normal[0]-normal[1])*(normal[0]-normal[1])+12.0*(normal[0]+normal[1])*(normal[0]+normal[1]))*normalx[1][1])
 #define gammanzz (epsilonM*48.0*normal[2]*normal[2]*normalx[2][2])
 
 //Allen-Cahn mobility (isotropic)

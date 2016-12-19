@@ -1,6 +1,6 @@
+// This version is for 45 degree rotation 
 // The code is based on the model of Wheeler et al.:
 // Wheeler, A. A., Murray, B. T. & Schaefer, R. J. Computation of dendrites using a phase field model. Physica D 66, 243-262, (1993).
-
 
 // =================================================================================
 // Define the variables in the model
@@ -50,12 +50,12 @@
 //writing out powers instead of using std::pow(double,double) for performance reasons
 #define gamma (1.0+epsilonM*(4.0*(normal[0]*normal[0]*normal[0]*normal[0]+normal[1]*normal[1]*normal[1]*normal[1])-3.0))
 #else
-#define gamma (1.0+epsilonM*(4.0*(normal[0]*normal[0]*normal[0]*normal[0]+normal[1]*normal[1]*normal[1]*normal[1]+normal[2]*normal[2]*normal[2]*normal[2])-3.0))
+#define gamma (1.0+epsilonM*(((normal[0]-normal[1])*(normal[0]-normal[1])*(normal[0]-normal[1])*(normal[0]-normal[1])+(normal[0]+normal[1])*(normal[0]+normal[1])*(normal[0]+normal[1])*(normal[0]+normal[1])+4.0*normal[2]*normal[2]*normal[2]*normal[2])-3.0))
 #endif
 
 //derivatives of gamma with respect to the components of the unit normal
-#define gammanx (epsilonM*16.0*normal[0]*normal[0]*normal[0])
-#define gammany (epsilonM*16.0*normal[1]*normal[1]*normal[1])
+#define gammanx (epsilonM*(4.0*(normal[0]-normal[1])*(normal[0]-normal[1])*(normal[0]-normal[1])+4.0*(normal[0]+normal[1])*(normal[0]+normal[1])*(normal[0]+normal[1])))
+#define gammany (epsilonM*(-4.0*(normal[0]-normal[1])*(normal[0]-normal[1])*(normal[0]-normal[1])+4.0*(normal[0]+normal[1])*(normal[0]+normal[1])*(normal[0]+normal[1])))
 #define gammanz (epsilonM*16.0*normal[2]*normal[2]*normal[2])
 
 #if problemDIM==2
@@ -69,8 +69,9 @@
 #define gammaz (gammanx*normalx[2][0]+gammany*normalx[2][1]+gammanz*normalx[2][2])
 #endif
 
-#define gammanxx (epsilonM*48.0*normal[0]*normal[0]*normalx[0][0])
-#define gammanyy (epsilonM*48.0*normal[1]*normal[1]*normalx[1][1])
+
+#define gammanxx (epsilonM*(12.0*(normal[0]-normal[1])*(normal[0]-normal[1])+12.0*(normal[0]+normal[1])*(normal[0]+normal[1]))*normalx[0][0])
+#define gammanyy (epsilonM*(12.0*(normal[0]-normal[1])*(normal[0]-normal[1])+12.0*(normal[0]+normal[1])*(normal[0]+normal[1]))*normalx[1][1])
 #define gammanzz (epsilonM*48.0*normal[2]*normal[2]*normalx[2][2])
 
 //Allen-Cahn mobility (isotropic)
@@ -86,7 +87,7 @@
 #define rcV   (c-constV(1.0/delta)*Bn)
 #define rcxV  (constV(-timeStep)*cx)
 #define rnV  (n+constV(timeStep/tau1)*(constV(tau2)*aniso+An))
-#define rnxV (constV(tau2*timeStep/tau1)*(-gamma*gamma*nx))
+#define rnxV (constV(tau2*timeStep/tau1)*(-nx))
 
 
 // =================================================================================

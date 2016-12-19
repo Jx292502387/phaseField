@@ -6,7 +6,7 @@
 #define numSolution 2
 // Set the number of dimensions (1, 2, or 3 for a 1D, 2D, or 3D calculation)
 // =================================================================================
-#define problemDIM 3
+#define problemDIM 2
 
 // =================================================================================
 // Set the length of the domain in all three dimensions
@@ -24,7 +24,7 @@
 #define subdivisionsX 1
 #define subdivisionsY 1
 #define subdivisionsZ 1
-#define refineFactor 6
+#define refineFactor 7
 
 // Set the polynomial degree of the element (suggested values: 1 or 2)
 #define finiteElementDegree 2
@@ -52,7 +52,7 @@
 
 // Number of times the program outputs the fields (total number for "EQUAL_SPACING"
 // and "LOG_SPACING", number per decade for "N_PER_DECADE", ignored for "LIST")
-#define numOutputs 10
+#define numOutputs 100
 
 // User-defined list of time steps where the program should output. Only used if
 // outputCondition is "LIST"
