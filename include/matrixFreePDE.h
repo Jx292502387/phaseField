@@ -179,6 +179,7 @@ class MatrixFreePDE:public Subscriptor
   std::vector<vectorType*>             residualSet;
   /*Vector of parallel solution transfer objects. This is used only when adaptive meshing is enabled.*/
   std::vector<parallel::distributed::SolutionTransfer<dim, vectorType>*> soltransSet;
+  std::vector<parallel::distributed::SolutionTransfer<dim, vectorType>*> oldSoltransSet;
   
   //matrix free objects
    /*Object of class MatrixFree<dim>. This is primarily responsible for all the base matrix free functionality of this MatrixFreePDE<dim> class.

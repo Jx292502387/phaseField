@@ -33,7 +33,7 @@
 // Set the adaptive mesh refinement parameters
 // =================================================================================
 // Set the flag determining if adaptive meshing is activated
-#define hAdaptivity false
+#define hAdaptivity true
 
 // Set the maximum and minimum level of refinement
 #define maxRefinementLevel (refineFactor)
@@ -44,8 +44,8 @@
 #define refineCriterionFields {1}
 
 // Set the maximum and minimum value of the fields where the mesh should be refined
-#define refineWindowMax {0.99}
-#define refineWindowMin {0.01}
+#define refineWindowMax {0.9}
+#define refineWindowMin {0.1}
 
 // Set the number of time steps between remeshing operations
 #define skipRemeshingSteps 200
@@ -73,7 +73,7 @@
 
 // Number of times the program outputs the fields (total number for "EQUAL_SPACING"
 // and "LOG_SPACING", number per decade for "N_PER_DECADE", ignored for "LIST")
-#define numOutputs 100
+#define numOutputs 50
 
 // User-defined list of time steps where the program should output. Only used if
 // outputCondition is "LIST"

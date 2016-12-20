@@ -53,24 +53,25 @@ void MatrixFreePDE<dim>::solve(){
 
       //Ghost the solution vectors. Also apply the Dirichet BC's (if any) on the solution vectors
       for(unsigned int fieldIndex=0; fieldIndex<fields.size(); fieldIndex++){
-    	  constraintsDirichletSet[fieldIndex]->distribute(*solutionSet[fieldIndex]);
-    	  solutionSet[fieldIndex]->update_ghost_values();
+	constraintsDirichletSet[fieldIndex]->distribute(*solutionSet[fieldIndex]);
+	solutionSet[fieldIndex]->update_ghost_values();
       }
 
       if(numSolution == 2)
 	updateSolutionSet(oldSolutionSet, tempSolutionSet, "after calc: ");
 
       //output results to file
-  if ((writeOutput) && (outputTimeStepList[currentOutput] == currentIncrement)) {
-    outputResults();
+      if ((writeOutput) && (outputTimeStepList[currentOutput] == currentIncrement))
+	{
+	  outputResults();
 #ifdef calcEnergy
-    if (calcEnergy == true){
-      computeEnergy();
-      outputFreeEnergy(freeEnergyValues);
-    }
+	  if (calcEnergy == true){
+	    computeEnergy();
+	    outputFreeEnergy(freeEnergyValues);
+	  }
 #endif
-    currentOutput++;
-  }
+	  currentOutput++;
+	}
     }
     
   }

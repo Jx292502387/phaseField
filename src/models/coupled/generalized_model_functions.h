@@ -661,10 +661,10 @@ void generalizedProblem<dim>::computeIntegral(double& integratedField){
 //adaptive refinement control
 template <int dim>
 void generalizedProblem<dim>::adaptiveRefine(unsigned int currentIncrement){
-	#if hAdaptivity == true
-	if ((currentIncrement>0) && (currentIncrement%skipRemeshingSteps==0)){
-		this->refineMesh(currentIncrement);
-	}
+#if hAdaptivity == true
+  if (currentIncrement == 1 || ((currentIncrement>0) && (currentIncrement%skipRemeshingSteps==0))){
+    this->refineMesh(currentIncrement);
+  }
 	#endif
 }
 

@@ -59,12 +59,13 @@ void MatrixFreePDE<dim>::refineGrid (){
       }
   }
 
-
   //prepare and refine
   triangulation.prepare_coarsening_and_refinement();
   for(unsigned int fieldIndex=0; fieldIndex<fields.size(); fieldIndex++){
     (*residualSet[fieldIndex])=(*solutionSet[fieldIndex]);
+    (*tempSolutionSet[fieldIndex])=(*oldSolutionSet[fieldIndex]);
     soltransSet[fieldIndex]->prepare_for_coarsening_and_refinement(*residualSet[fieldIndex]);
+    oldSoltransSet[fieldIndex]->prepare_for_coarsening_and_refinement(*tempSolutionSet[fieldIndex]);
   }
   triangulation.execute_coarsening_and_refinement();
 #endif
@@ -74,7 +75,7 @@ void MatrixFreePDE<dim>::refineGrid (){
 template <int dim>
 void MatrixFreePDE<dim>::refineMesh(unsigned int _currentIncrement){
 #if hAdaptivity==true 
-  init(_currentIncrement-1);
+  init(_currentIncrement);
 #endif
 }
 
