@@ -110,33 +110,33 @@ double sfts_const3[3][3]={{0.0225, 0.0069,0},{0.0069,0.0305,0},{0,0,-0.00270}};
 // each residual equation. The index for each variable in these lists corresponds to
 // the order it is defined at the top of this file (starting at 0).
 template <int dim>
-void generalizedProblem<dim>::residualRHS(const std::vector<modelVariable<dim>> & modelVariablesList, std::vector<modelResidual<dim>> & modelResidualsList, dealii::Point<dim, dealii::VectorizedArray<double> > q_point_loc) const {
+void generalizedProblem<dim>::residualRHS(const std::vector<std::vector<modelVariable<dim>>*> & modelVariablesList, std::vector<modelResidual<dim>> & modelResidualsList, dealii::Point<dim, dealii::VectorizedArray<double> > q_point_loc) const {
 
 // The concentration and its derivatives (names here should match those in the macros above)
-scalarvalueType c = modelVariablesList[0].scalarValue;
-scalargradType cx = modelVariablesList[0].scalarGrad;
+  scalarvalueType c = (*modelVariablesList[0])[0].scalarValue;
+scalargradType cx = (*modelVariablesList[0])[0].scalarGrad;
 
 // The first order parameter and its derivatives (names here should match those in the macros above)
-scalarvalueType n1 = modelVariablesList[1].scalarValue;
-scalargradType n1x = modelVariablesList[1].scalarGrad;
+scalarvalueType n1 = (*modelVariablesList[0])[1].scalarValue;
+scalargradType n1x = (*modelVariablesList[0])[1].scalarGrad;
 
 // The second order parameter and its derivatives (names here should match those in the macros above)
-scalarvalueType n2 = modelVariablesList[2].scalarValue;
-scalargradType n2x = modelVariablesList[2].scalarGrad;
+scalarvalueType n2 = (*modelVariablesList[0])[2].scalarValue;
+scalargradType n2x = (*modelVariablesList[0])[2].scalarGrad;
 
 
 // The third order parameter and its derivatives (names here should match those in the macros above)
-scalarvalueType n3 = modelVariablesList[3].scalarValue;
-scalargradType n3x = modelVariablesList[3].scalarGrad;
+scalarvalueType n3 = (*modelVariablesList[0])[3].scalarValue;
+scalargradType n3x = (*modelVariablesList[0])[3].scalarGrad;
 
 // The derivative of the displacement vector (names here should match those in the macros above)
-vectorgradType ux = modelVariablesList[4].vectorGrad;
+vectorgradType ux = (*modelVariablesList[0])[4].vectorGrad;
 vectorgradType ruxV;
 
 vectorhessType uxx;
 
 if (c_dependent_misfit == true){
-  uxx = modelVariablesList[4].vectorHess;
+  uxx = (*modelVariablesList[0])[4].vectorHess;
 }
 
 // Calculate the stress-free transformation strain and its derivatives at the quadrature point

@@ -69,17 +69,17 @@
 // each residual equation. The index for each variable in these lists corresponds to
 // the order it is defined at the top of this file (starting at 0).
 template <int dim>
-void generalizedProblem<dim>::residualRHS(const std::vector<modelVariable<dim>> & modelVariablesList,
+void generalizedProblem<dim>::residualRHS(const std::vector<std::vector<modelVariable<dim>>*> & modelVariablesList,
 												std::vector<modelResidual<dim>> & modelResidualsList,
 												dealii::Point<dim, dealii::VectorizedArray<double> > q_point_loc) const {
 
 // The concentration and its derivatives (names here should match those in the macros above)
-scalarvalueType c = modelVariablesList[0].scalarValue;
-scalargradType cx = modelVariablesList[0].scalarGrad;
+  scalarvalueType c = (*modelVariablesList[0])[0].scalarValue;
+  scalargradType cx = (*modelVariablesList[0])[0].scalarGrad;
 
 // The order parameter and its derivatives (names here should match those in the macros above)
-scalarvalueType n = modelVariablesList[1].scalarValue;
-scalargradType nx = modelVariablesList[1].scalarGrad;
+  scalarvalueType n = (*modelVariablesList[0])[1].scalarValue;
+  scalargradType nx = (*modelVariablesList[0])[1].scalarGrad;
 
 // Residuals for the equation to evolve the concentration (names here should match those in the macros above)
 modelResidualsList[0].scalarValueResidual = rcV;

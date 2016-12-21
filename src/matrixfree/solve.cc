@@ -12,10 +12,11 @@ void MatrixFreePDE<dim>::solve(){
   computing_timer.enter_section("matrixFreePDE: solve"); 
   pcout << "\nsolving...\n\n";
 
+#ifdef numOutputs
   std::vector<unsigned int> userGivenTimeStepList = outputList;
   getOutputTimeSteps(outputCondition,numOutputs,userGivenTimeStepList,outputTimeStepList);
+#endif
   int currentOutput = 0;
-
 
   //time dependent BVP
   if (isTimeDependentBVP){

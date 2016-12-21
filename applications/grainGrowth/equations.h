@@ -52,7 +52,7 @@
 // each residual equation. The index for each variable in these lists corresponds to
 // the order it is defined at the top of this file (starting at 0).
 template <int dim>
-void generalizedProblem<dim>::residualRHS(const std::vector<modelVariable<dim>> & modelVariablesList,
+void generalizedProblem<dim>::residualRHS(const std::vector<std::vector<modelVariable<dim>>*> & modelVariablesList,
 												std::vector<modelResidual<dim>> & modelResidualsList,
 												dealii::Point<dim, dealii::VectorizedArray<double> > q_point_loc) const {
 
@@ -60,14 +60,14 @@ dealii::VectorizedArray<double> fnV = constV(0.0);
 scalargradType nx;
 
 for (unsigned int i=0; i<num_var; i++){
-	fnV = - modelVariablesList[i].scalarValue + modelVariablesList[i].scalarValue*modelVariablesList[i].scalarValue*modelVariablesList[i].scalarValue;
-	nx = modelVariablesList[i].scalarGrad;
+  fnV = - (*modelVariablesList[0])[i].scalarValue + (*modelVariablesList[0])[i].scalarValue*(*modelVariablesList[0])[i].scalarValue*(*modelVariablesList[0])[i].scalarValue;
+  nx = (*modelVariablesList[0])[i].scalarGrad;
 	for (unsigned int j=0; j<num_var; j++){
 		if (i != j){
-			fnV += constV(2.0*alpha) * modelVariablesList[i].scalarValue * modelVariablesList[j].scalarValue*modelVariablesList[j].scalarValue;
+		  fnV += constV(2.0*alpha) * (*modelVariablesList[0])[i].scalarValue * (*modelVariablesList[0])[j].scalarValue*(*modelVariablesList[0])[j].scalarValue;
 		}
 	}
-	modelResidualsList[i].scalarValueResidual = modelVariablesList[i].scalarValue-constV(timeStep*MnV)*fnV;
+	modelResidualsList[i].scalarValueResidual = (*modelVariablesList[0])[i].scalarValue-constV(timeStep*MnV)*fnV;
 	modelResidualsList[i].scalarGradResidual = constV(-timeStep*KnV*MnV)*nx;
 }
 

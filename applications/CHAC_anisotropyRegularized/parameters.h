@@ -5,7 +5,7 @@
 // Set the number of dimensions (1, 2, or 3 for a 1D, 2D, or 3D calculation)
 // =================================================================================
 #define problemDIM 2
-
+#define numSolution 1
 // =================================================================================
 // Set the length of the domain in all three dimensions
 // =================================================================================

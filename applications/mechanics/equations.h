@@ -45,7 +45,7 @@
 // Define Mechanical properties
 // Mechanical symmetry of the material and stiffness parameters
 #define MaterialModels {"ISOTROPIC"}
-#define MaterialConstants {{2.0,0.3}}
+#define MaterialConstants {{1.0,0.3}}
 
 
 // =================================================================================
@@ -59,12 +59,10 @@
 // each residual equation. The index for each variable in these lists corresponds to
 // the order it is defined at the top of this file (starting at 0).
 template <int dim>
-void generalizedProblem<dim>::residualRHS(const std::vector<modelVariable<dim>> & modelVariablesList,
-												std::vector<modelResidual<dim>> & modelResidualsList,
-												dealii::Point<dim, dealii::VectorizedArray<double> > q_point_loc) const {
+void generalizedProblem<dim>::residualRHS(const std::vector<std::vector<modelVariable<dim>>*> & modelVariablesList, std::vector<modelResidual<dim>> & modelResidualsList, dealii::Point<dim, dealii::VectorizedArray<double> > q_point_loc) const {
 
 //u
-vectorgradType ux = modelVariablesList[0].vectorGrad;
+  vectorgradType ux = (*modelVariablesList[0])[0].vectorGrad;
 vectorgradType Rux;
 
 //compute strain tensor

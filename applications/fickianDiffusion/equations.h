@@ -56,14 +56,14 @@
 // each residual equation. The index for each variable in these lists corresponds to
 // the order it is defined at the top of this file (starting at 0).
 template <int dim>
-void generalizedProblem<dim>::residualRHS(const std::vector<modelVariable<dim>> & modelVariablesList,
+void generalizedProblem<dim>::residualRHS(const std::vector<std::vector<modelVariable<dim>>*> & modelVariablesList,
 												std::vector<modelResidual<dim>> & modelResidualsList,
 												dealii::Point<dim, dealii::VectorizedArray<double> > q_point_loc) const {
 
 
 //c
-scalarvalueType c = modelVariablesList[0].scalarValue;
-scalargradType cx = modelVariablesList[0].scalarGrad;
+  scalarvalueType c = (*modelVariablesList[0])[0].scalarValue;
+  scalargradType cx = (*modelVariablesList[0])[0].scalarGrad;
 
 double x=q_point_loc[0][0], y=q_point_loc[1][0];
 double t=this->currentTime;
